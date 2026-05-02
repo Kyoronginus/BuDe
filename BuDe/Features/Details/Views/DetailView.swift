@@ -12,7 +12,7 @@ struct DetailView: View {
     var body: some View {
         ZStack{
             // warna background ny
-            Color(Color(hex: "F1EDE0"))
+            Color(hex: "F1EDE0")
                 .ignoresSafeArea()
             
             VStack{
@@ -30,14 +30,11 @@ struct DetailView: View {
                 Image("potato-image-1")
                 
                 // condition list row?
-                HStack{
-                    RoundedRectangle(cornerRadius: 14)
-                        .inset(by: 0)
-                        .foregroundColor(Color(hex: "E9152D"))
-                    RoundedRectangle(cornerRadius: 14)
-                        .inset(by: 0)
-                        .foregroundColor(Color.green)
+                HStack(spacing: 20){
+                    conditionListCard(type: .issue)
+                    conditionListCard(type: .good)
                 }
+
                 
                 // Handling tips
                 HStack{
@@ -48,10 +45,17 @@ struct DetailView: View {
                 RoundedRectangle(cornerRadius: 14)
                 
                 // great job! thingy
-                RoundedRectangle(cornerRadius: 14)
-                    .padding(30)
-                    
-                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .foregroundColor(.white)
+                    HStack{
+                        Image("maskot")
+                            .padding(10)
+                        Text("Great job! You're taking good care of your potato!")
+                        Spacer()
+                    }
+                }
+                .padding(20)
             }
             .padding(20)
         }
@@ -62,6 +66,8 @@ struct DetailView: View {
     DetailView()
 }
 
+
+// ngubah hex ke RGB
 extension Color {
   init(hex: String) {
     let hex = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
