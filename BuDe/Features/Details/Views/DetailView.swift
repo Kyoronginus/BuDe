@@ -6,8 +6,37 @@
 //
 import SwiftUI
 
+enum PotatoCondition {
+    case safeToEat
+    case notRecommended
+    
+    var resultText: String {
+        switch self {
+        case .safeToEat: return "Safe to Eat"
+        case .notRecommended: return "Not Recommended"
+        }
+    }
+    
+    var resultTextColor: Color {
+        switch self {
+        case .safeToEat: return Color(hex: "00A86B")
+        case .notRecommended: return Color(hex: "E9152D")
+        }
+    }
+    
+    var resultImage: Image {
+        switch self {
+        case .safeToEat: return Image("potato-image-safeToEat")
+        case .notRecommended: return Image("potato-image-notRecommended")
+        }
+    }
+    
+}
+
 struct DetailView: View {
     let potato: Potato = Potato.data[0]
+    let potatoCondition: PotatoCondition = Potato.data[0].isRecommended ? .safeToEat : .notRecommended
+    let handlingTips: PotatoHandlingModel = Potato.data[0].handle
     
     var body: some View {
         ZStack{
@@ -21,13 +50,12 @@ struct DetailView: View {
                     .font(.custom("Poppins-SemiBold", size: 16))
                 
                 // recommended or not
-                Text("Placeholder Placeholder")
+                Text(potatoCondition.resultText)
                     .font(.custom("Poppins-Bold", size: 25))
-                    .foregroundStyle(Color(hex: "E9152D"))
-                    
+                    .foregroundStyle(potatoCondition.resultTextColor)
                 
                 // potato image
-                Image("potato-image-1")
+                potatoCondition.resultImage
                 
                 // condition list row?
                 HStack(spacing: 20){
@@ -42,8 +70,27 @@ struct DetailView: View {
                     Spacer()
                 }
                 
-                RoundedRectangle(cornerRadius: 14)
-                
+                ZStack {
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color(hex: "FFFFFF"))
+                        .opacity(1.0)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .strokeBorder(Color(hex: "F0F0F0"), lineWidth: 2)
+                        )
+                    HStack() {
+                        ForEach(0..<handlingTips.texts.count, id: \.self) { index in
+                            VStack(){
+                                handlingTips.images[index]
+                                Text(handlingTips.texts[index])
+                            }
+
+                        }
+                    }
+                    .padding(12)
+                    
+                }
+
                 // great job! thingy
                 ZStack {
                     RoundedRectangle(cornerRadius: 14)
@@ -55,7 +102,6 @@ struct DetailView: View {
                         Spacer()
                     }
                 }
-                .padding(20)
             }
             .padding(20)
         }
@@ -66,16 +112,3 @@ struct DetailView: View {
     DetailView()
 }
 
-
-// ngubah hex ke RGB
-extension Color {
-  init(hex: String) {
-    let hex = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
-    let rgbValue = UInt32(hex, radix: 16)
-    let r = Double((rgbValue! & 0xFF0000) >> 16) / 255
-    let g = Double((rgbValue! & 0x00FF00) >> 8) / 255
-    let b = Double(rgbValue! & 0x0000FF) / 255
-    
-    self.init(red: r, green: g, blue: b)
-  }
-}

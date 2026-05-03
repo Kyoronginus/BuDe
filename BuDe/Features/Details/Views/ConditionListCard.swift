@@ -10,42 +10,44 @@ enum CardType {
     case issue
     case good
     
-    var gradientStartColor: Color {
+    var cardColor: Color {
         switch self {
-        case .issue: return Color(hex: "FFE0E3")
-        case .good: return Color(hex: "34C759")
+        case .issue: return Color(hex: "FFE1E5")
+        case .good: return Color(hex: "DEFFE1")
         }
     }
     
-    var gradientEndColor: Color {
-        switch self {
-        case .issue: return Color(hex: "FF9CA6")
-        case .good: return Color(hex: "008932")
+    var borderColor: Color {
+        switch self{
+        case .issue: return Color(hex: "FFD6DA")
+        case .good : return Color(hex: "B5F9BA")
         }
     }
     
     var textColor: Color {
         switch self {
-        case .issue: return Color.red
-        case .good: return Color.green
+        case .issue: return Color(hex: "E9152D")
+        case .good: return Color(hex: "008932")
         }
     }
 }
+
 struct conditionListCard: View {
     let type: CardType
-    let opacityValue: Double = 0.55
+    let opacityValue: Double = 1.0
     let issuesCount: Int = 0
     let goodAreasCount: Int = 0
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 14)
-                .fill(
-                    LinearGradient(colors: [ type.gradientStartColor, type.gradientEndColor],
-                                   startPoint: .top,
-                                   endPoint: .bottom)
-                )
+                .fill(type.cardColor)
                 .opacity(opacityValue)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(type.borderColor, lineWidth: 2)
+                )
+                
             VStack{
                 HStack {
                     
