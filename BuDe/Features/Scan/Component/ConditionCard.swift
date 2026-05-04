@@ -10,6 +10,7 @@ import SwiftUI
 struct ConditionCard: View {
     let title: String
     let condition: [Potato]
+    @State var isDetailShown: Bool = false
     
     var isRecommended: Bool {
         title == "Safe to Eat"
@@ -43,7 +44,9 @@ struct ConditionCard: View {
             
             Spacer()
             
-            Button(action: {}) {
+            Button(action: {
+                isDetailShown.toggle()
+            }) {
                 Text("Read More Details")
                     .font(Font.caption)
                     .foregroundStyle(Color.fontDark)
@@ -57,6 +60,10 @@ struct ConditionCard: View {
         .background(isRecommended ? Color.glassGreen : Color.glassRed)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
+        .sheet(isPresented: $isDetailShown){
+            DetailView(viewModel: DetailViewModel(detectedPotatoes: condition,
+                       isRecommended : self.isRecommended))
+        }
     }
 }
 

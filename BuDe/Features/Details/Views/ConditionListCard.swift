@@ -34,30 +34,31 @@ enum CardType {
 
 struct conditionListCard: View {
     let type: CardType
-    let opacityValue: Double = 1.0
-    let issuesCount: Int = 0
-    let goodAreasCount: Int = 0
+    let potatoes: [Potato]
     
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 14)
                 .fill(type.cardColor)
-                .opacity(opacityValue)
                 .overlay(
                     RoundedRectangle(cornerRadius: 14)
                         .strokeBorder(type.borderColor, lineWidth: 2)
                 )
-                
             VStack{
-                HStack {
-                    
-                    Text( type == .issue ? "❌ \(issuesCount) Issues Found" : "✅ \(goodAreasCount) Good Areas")
-                        .font(.custom("Nunito-Bold", size: 14))
-                        .foregroundStyle(type.textColor)
-                    
+                VStack (alignment: .leading) {
                     // todo: looping buat nunjukin issues nya
+                    ForEach(potatoes) { potato in
+                        VStack (alignment: .leading){
+                            Text("• \(potato.name)")
+                                .font(Font.subtitle)
+                                .foregroundStyle(type.textColor)
+                            Text(potato.tips)
+                        }
+                        
+                    }
                     
                 }
+                
             }
         }
     }
@@ -65,7 +66,50 @@ struct conditionListCard: View {
 
 #Preview {
     VStack {
-        conditionListCard(type: .issue)
-        conditionListCard(type: .good)
+        conditionListCard(type: .issue, potatoes: [
+            Potato(
+                name: "Healthy",
+                action: "Safe to Eat",
+                tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition",
+                handle: PotatoHandlingTips.healthy.handle,
+                isRecommended: true
+            ),
+            Potato(
+                name: "Black Scurf",
+                action: "Safe to Eat",
+                tips: "Black scurf appears as dark patches on the skin but does not affect the inside, so the potato is still safe to eat when peeled",
+                handle: PotatoHandlingTips.blackScurf.handle,
+                isRecommended: true
+            ),
+            Potato(
+                name: "Common Scab",
+                action: "Safe to Eat",
+                tips: "Common scab causes rough, scaly spots on the skin but is harmless and the potato remains safe to eat",
+                handle: PotatoHandlingTips.commonScab.handle,
+                isRecommended: true
+            ),
+            Potato(
+                name: "Sprouted",
+                action: "Not recommended",
+                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
+                handle: PotatoHandlingTips.sprouted.handle,
+                isRecommended: false
+            ),
+            Potato(
+                name: "Green Potato",
+                action: "Not recommended",
+                tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
+                handle: PotatoHandlingTips.greenSkin.handle,
+                isRecommended: false
+            ),
+            Potato(
+                name: "Rot",
+                action: "Not recommended",
+                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
+                handle: PotatoHandlingTips.rotten.handle,
+                isRecommended: false
+            )
+        ])
+//        conditionListCard(type: .good)
     }
 }

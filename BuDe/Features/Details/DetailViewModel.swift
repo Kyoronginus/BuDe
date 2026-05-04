@@ -24,6 +24,13 @@ enum PotatoCondition {
         }
     }
     
+    var resultBoxColor: Color {
+        switch self {
+        case .safeToEat: return Color.glassGreen
+        case .notRecommended: return Color.glassRed
+        }
+    }
+    
     var resultImage: Image {
         switch self {
         case .safeToEat: return Image("potato-image-safeToEat")
@@ -32,3 +39,30 @@ enum PotatoCondition {
     }
 }
 
+@Observable
+class DetailViewModel {
+    var detectedPotatoes: [Potato]
+    var isRecommended: Bool
+    
+    
+    init(detectedPotatoes: [Potato], isRecommended: Bool) {
+        self.detectedPotatoes = detectedPotatoes
+        self.isRecommended = isRecommended
+    }
+    
+    var recommendedPotatoes: [Potato] {
+        self.detectedPotatoes.filter({ $0.isRecommended })
+    }
+    
+    var notRecommendedPotatoes: [Potato] {
+        self.detectedPotatoes.filter({ !$0.isRecommended })
+    }
+    
+    var overallCondition: PotatoCondition {
+        return isRecommended ? .safeToEat : .notRecommended
+    }
+    
+    var handlingTips: PotatoHandlingModel {
+        return detectedPotatoes.first?.handle ?? Potato.data[0].handle
+    }
+}

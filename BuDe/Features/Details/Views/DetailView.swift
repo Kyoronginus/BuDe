@@ -7,10 +7,11 @@
 import SwiftUI
 
 struct DetailView: View {
-    let potato: Potato = Potato.data[0]
-    let potatoCondition: PotatoCondition = Potato.data[0].isRecommended ? .safeToEat : .notRecommended
-    let handlingTips: PotatoHandlingModel = Potato.data[0].handle
-    
+//    let potato: Potato
+//    let potatoCondition: PotatoCondition
+//    let handlingTips: PotatoHandlingModel
+        
+    var viewModel: DetailViewModel
     
     
     var body: some View {
@@ -25,27 +26,36 @@ struct DetailView: View {
                     .font(.custom("Poppins-SemiBold", size: 16))
                 
                 // recommended or not
-                
                 ZStack(){
                     RoundedRectangle(cornerRadius: 100)
-                        .fill(Color.glassGreen)
+                        .fill(viewModel.overallCondition.resultBoxColor)
                         .overlay(
                             RoundedRectangle(cornerRadius: 100)
-                                .strokeBorder(Color.fontGreen, lineWidth: 2)
+                                .strokeBorder(viewModel.overallCondition.resultTextColor, lineWidth: 2)
                             
                         )
                         .frame(height: 50)
                         .padding(.horizontal, 50)
-                    Text(potatoCondition.resultText)
+                    Text(viewModel.overallCondition.resultText)
                         .font(.custom("Poppins-Bold", size: 18))
-                        .foregroundStyle(potatoCondition.resultTextColor)
+                        .foregroundStyle(viewModel.overallCondition.resultTextColor)
                 }
+                
+                
                 // potato image
-                potatoCondition.resultImage
+                viewModel.overallCondition.resultImage
+                
+                
                 // condition list row?
                 HStack(spacing: 20){
-                    conditionListCard(type: .issue)
-                    conditionListCard(type: .good)
+                    if !viewModel.notRecommendedPotatoes.isEmpty {
+                        conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes)
+                    }
+                    if !viewModel.recommendedPotatoes.isEmpty {
+                        conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes)
+                    }
+
+
                 }
                 .frame(height: 100)
 
@@ -65,10 +75,10 @@ struct DetailView: View {
                                 .strokeBorder(Color(hex: "F0F0F0"), lineWidth: 2)
                         )
                     HStack() {
-                        ForEach(0..<handlingTips.texts.count, id: \.self) { index in
+                        ForEach(0..<viewModel.handlingTips.texts.count, id: \.self) { index in
                             VStack(){
-                                handlingTips.images[index]
-                                Text(handlingTips.texts[index])
+                                viewModel.handlingTips.images[index]
+                                Text(viewModel.handlingTips.texts[index])
                                     .font(.custom("Poppins-SemiBold", size: 9))
                             }
                             .frame(maxWidth: .infinity)
@@ -103,7 +113,7 @@ struct DetailView: View {
     }
 }
 
-#Preview {
-    DetailView()
-}
+//#Preview {
+//    DetailView()
+//}
 
