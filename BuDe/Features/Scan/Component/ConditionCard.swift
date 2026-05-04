@@ -12,7 +12,7 @@ struct ConditionCard: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Image(systemName: "questionmark.fill")
+            Image(systemName: "questionmark.circle.fill")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50, height: 50)

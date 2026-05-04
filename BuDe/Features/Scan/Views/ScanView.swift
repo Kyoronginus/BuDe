@@ -17,8 +17,8 @@ struct ScanView: View {
                 .ignoresSafeArea()
             
             VStack {
-                if Potato.data.first != nil {
-                    ConditionCard(condition: Potato.data[0])
+                if let detectedPotato = viewModel.results {
+                    ConditionCard(condition: detectedPotato)
                         .padding(.top, 60)
                         .transition(.move(edge: .top).combined(with: .opacity))
                     
@@ -33,7 +33,7 @@ struct ScanView: View {
                 }
                 
                 HStack {
-                    Image("photo")
+                    Image(systemName: "questionmark.circle.fill")
                         .resizable()
                         .frame(width: 40, height: 40)
                         .clipShape(Circle())
@@ -46,6 +46,12 @@ struct ScanView: View {
                     .padding(.horizontal, 75)
                 .background(.ultraThinMaterial)
             }
+        }
+        .onAppear {
+            viewModel.cameraManager.start()
+        }
+        .onDisappear {
+            viewModel.cameraManager.stop()
         }
     }
 }
