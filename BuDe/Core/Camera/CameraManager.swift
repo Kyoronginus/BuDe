@@ -5,13 +5,12 @@
 //  Created by Tohru Djunaedi Sato on 01/05/26.
 //
 
-import Foundation
 import AVFoundation // access camera
 import CoreVideo // for cvpixelbuffer format image
 import Combine
 
 // Enumaration
-enum CameraManagerErrorHandling: Error{
+enum CameraManagerErrorHandling: Error, Identifiable{
     var id: String{UUID().uuidString}
     case cameraNotAvailable
     case inputFailed(String)
@@ -30,13 +29,13 @@ enum CameraManagerErrorHandling: Error{
     }
 }
 
-class CameraManager: NSObject, ObservableObject {
+@Observable class CameraManager: NSObject {
     
     let camSession = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput() // output gambar
     var onFrameCaptured: ((CVPixelBuffer) -> Void)?
     
-    @Published var currentError: CameraManagerErrorHandling?
+    var currentError: CameraManagerErrorHandling?
     override init() {
         super.init()
         setupCamera()
@@ -92,12 +91,12 @@ class CameraManager: NSObject, ObservableObject {
                         }
                     }
                 }
-            default:
-                DispatchQueue.main.async{
-                    self.currentError = .permissionDenied
-                }
+        default:
+            DispatchQueue.main.async{
+                self.currentError = .permissionDenied
             }
         }
+    }
         
     func stop(){
         self.camSession.stopRunning()

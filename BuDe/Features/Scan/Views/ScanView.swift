@@ -1,50 +1,101 @@
-//
-//  ScanView.swift
-//  BuDe
-//
-//  Created by Gabriella Angelina Widjaja on 03/05/26.
-//
-
 import SwiftUI
 import AVFoundation
+import Vision
 
 struct ScanView: View {
-    @State var viewModel = ScanViewModel()
+    @State private var viewModel = ScanViewModel()
     
     var body: some View {
         ZStack {
             CameraPreview(session: viewModel.cameraManager.camSession)
                 .ignoresSafeArea()
             
+            GeometryReader { geometry in
+                ForEach(viewModel.detectedBoxes, id: \.uuid) { observation in
+                    let label = observation.labels.first?.identifier ?? ""
+                    let boundingBox = observation.boundingBox
+                    
+                    let boxWidth = boundingBox.width * geometry.size.width
+                    let boxHeight = boundingBox.height * geometry.size.height
+                    
+                    let centerX = boundingBox.midX * geometry.size.width
+                    let centerY = (1.0 - boundingBox.midY) * geometry.size.height
+                    
+                    let boxColor: Color = (label == "Healthy" || label == "Common Scab" || label == "Black Scurf") ? .green : .red
+                    
+                    ZStack {
+                        Rectangle() // box outline
+                            .stroke(boxColor, lineWidth: 2)
+                        
+                        // in box
+                        Rectangle()
+                            .fill(boxColor.opacity(0.15))
+                        
+                        // text
+                        VStack {
+                            Text(label)
+                                .font(Font.boundingBoxText)
+                                .bold()
+                                .foregroundColor(.white)
+                                .padding(4)
+                                .background(boxColor)
+                                .cornerRadius(4)
+                            Spacer()
+                        }
+                        .offset(y: -24)
+                    }
+                    // box pos & size
+                    .frame(width: boxWidth, height: boxHeight)
+                    .position(x: centerX, y: centerY)
+                    .animation(.easeInOut(duration: 0.2), value: centerX)
+                }
+            }
+            .ignoresSafeArea()
+            
             VStack {
-                if let detectedPotato = viewModel.results {
-                    ConditionCard(condition: detectedPotato)
-                        .padding(.top, 60)
-                        .transition(.move(edge: .top).combined(with: .opacity))
+                if !viewModel.results.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 12) {
+                            ForEach(viewModel.results) { potato in
+                                ConditionCard(condition: potato)
+                                    .frame(width: 250)
+                                }
+                            }
+                        }
                     
                     Spacer()
                     
-                    Text("Read more the result")
-                        .font(.system(size: 14))
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color.yellow)
-                        .cornerRadius(16)
+                    Button(action: {
+                    }) {
+                        Text("Read more the result")
+                            .font(Font.body)
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color.yellow)
+                            .cornerRadius(16)
+                    }
+                    .padding(.bottom, 10)
+                } else {
+                    Spacer()
                 }
                 
-                HStack {
+                HStack(spacing: 12) {
                     Image(systemName: "questionmark.circle.fill")
                         .resizable()
-                        .frame(width: 40, height: 40)
-                        .clipShape(Circle())
-                        .padding(.trailing)
+                        .frame(width: 30, height: 30)
+                        .foregroundColor(.yellow)
                     
-                    Text("Scan the whole area for accurate results")
-                        .font(.system(size: 14))
-
-                }.padding(.vertical, 8)
-                    .padding(.horizontal, 75)
+                    Text("Scan the whole area for accurate results.")
+                        .font(Font.body)
+                        .foregroundColor(.white)
+                }
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity)
                 .background(.ultraThinMaterial)
+                .cornerRadius(20)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
             }
         }
         .onAppear {
@@ -53,9 +104,16 @@ struct ScanView: View {
         .onDisappear {
             viewModel.cameraManager.stop()
         }
+        .alert(item: $viewModel.cameraManager.currentError) { error in
+            Alert(
+                title: Text("Attention!"),
+                message: Text(error.errorDesc ?? "Unknown Error 404."),
+                dismissButton: .default(Text("OK")) {
+                    if let settingsURL = URL(string: UIApplication.openSettingsURLString){
+                        UIApplication.shared.open(settingsURL)
+                    }
+                }
+            )
+        }
     }
-}
-
-#Preview {
-    ScanView()
 }

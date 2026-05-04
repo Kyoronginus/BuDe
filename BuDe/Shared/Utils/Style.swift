@@ -23,4 +23,6 @@ extension Font {
     static let subtitle: Font = .custom("Poppins-Semibold", size: 16)
     static let body: Font = .custom("Poppins-Regular", size: 14)
     static let caption: Font = .custom("Poppins-Semibold", size: 12)
+    
+    static let boundingBoxText: Font = .custom("Poppins-Bold", size: 10)
 }

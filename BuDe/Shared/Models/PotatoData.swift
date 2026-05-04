@@ -59,13 +59,13 @@ extension Potato {
             isRecommended: false
         ),
         Potato(
-            name: "Green Skin",
+            name: "Green Potato",
             action: "Not recommended",
             handle: PotatoHandlingTips.greenSkin.handle,
             isRecommended: false
         ),
         Potato(
-            name: "Rotten",
+            name: "Rot",
             action: "Not recommended",
             handle: PotatoHandlingTips.rotten.handle,
             isRecommended: false

@@ -1,19 +1,15 @@
-//
-//  ScanViewModel.swift
-//  BuDe
-//
-//  Created by Gabriella Angelina Widjaja on 04/05/26.
-//
-
 import Combine
 import Foundation
 import Vision
 
 @Observable class ScanViewModel {
     var cameraManager = CameraManager()
-    var results: Potato?
+    
+    var results: [Potato] = []
+    var detectedBoxes: [VNRecognizedObjectObservation] = []
     
     private let mlModel = MLService()
+    private var lastPredictionTime = Date()
     
     init() {
         setupMLConnection()
@@ -21,17 +17,31 @@ import Vision
     
     private func setupMLConnection() {
         cameraManager.onFrameCaptured = { [weak self] pixelBuffer in
-            self?.mlModel.predict(pixelBuffer: pixelBuffer) { observations in
-                if let topResult = observations.first?.labels.first?.identifier {
-                    DispatchQueue.main.async {
-                        self?.results = Potato.data.first(where: { potato in
-                            return potato.name == topResult
-                        })
+            guard let self = self else { return }
+            
+            // delay 1 secs
+            let now = Date()
+            guard now.timeIntervalSince(self.lastPredictionTime) >= 1.0 else {return}
+            
+            self.mlModel.predict(pixelBuffer: pixelBuffer) { observations in
+                DispatchQueue.main.async {
+                    let confidentObservations = observations.filter { $0.confidence > 0.6 }
+                    
+                    self.detectedBoxes = confidentObservations
+                    
+                    let detectedNames = observations.compactMap {
+                        $0.labels.first?.identifier
                     }
-                } else {
+                    
+                    let uniqueNames = Array(Set(detectedNames))
+                    
                     DispatchQueue.main.async {
-                        self?.results = nil
+                        self.results = Potato.data.filter {
+                            uniqueNames.contains($0.name)
+                        }
                     }
+                    
+                    self.lastPredictionTime = now
                 }
             }
         }
