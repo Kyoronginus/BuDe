@@ -19,7 +19,7 @@ struct ConditionCard: View {
             
             Text(condition.action)
                 .font(.headline)
-                .foregroundStyle(condition.isRecommended ? .green : .red)
+                .foregroundStyle(condition.isRecommended ? Color.glassGreen : Color.glassRed)
             
             Text(condition.name)
                 .font(.caption)
