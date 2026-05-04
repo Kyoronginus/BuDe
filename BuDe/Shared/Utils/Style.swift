@@ -17,3 +17,10 @@ extension Color {
     static let glassYellow: Color = Color(hex: "FFE5B0")
     static let white: Color = Color(hex: "FFFFFF")
 }
+
+extension Font {
+    static let title: Font = .custom("Poppins-Bold", size: 24)
+    static let subtitle: Font = .custom("Poppins-Semibold", size: 16)
+    static let body: Font = .custom("Poppins-Regular", size: 14)
+    static let caption: Font = .custom("Poppins-Semibold", size: 12)
+}
