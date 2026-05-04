@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import Combine
+import Foundation
 
-struct ScanViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    ScanViewModel()
+class ScanViewModel: ObservableObject {
+    @Published var cameraManager = CameraManager()
+    @Published var results: Potato?
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
 }

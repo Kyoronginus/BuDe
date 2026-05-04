@@ -27,6 +27,3 @@ struct CameraPreview: UIViewRepresentable {
     }
 }
 
-#Preview {
-    CameraPreview(session: <#AVCaptureSession#>)
-}
