@@ -34,7 +34,7 @@ class MLService {
             return
         }
         
-        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: .right, options: [:])
         
         do {
             try handler.perform([request])
