@@ -12,7 +12,7 @@ enum PotatoCondition {
     
     var resultText: String {
         switch self {
-        case .safeToEat: return "Safe to Eat"
+        case .safeToEat: return "Likely Recommended"
         case .notRecommended: return "Not Recommended"
         }
     }

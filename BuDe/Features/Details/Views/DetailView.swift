@@ -11,6 +11,8 @@ struct DetailView: View {
     let potatoCondition: PotatoCondition = Potato.data[0].isRecommended ? .safeToEat : .notRecommended
     let handlingTips: PotatoHandlingModel = Potato.data[0].handle
     
+    
+    
     var body: some View {
         ZStack{
             // warna background ny
@@ -23,12 +25,21 @@ struct DetailView: View {
                     .font(.custom("Poppins-SemiBold", size: 16))
                 
                 // recommended or not
-                RoundedRectangle(cornerRadius: 100)
-                    
-                Text(potatoCondition.resultText)
-                    .font(.custom("Poppins-Bold", size: 25))
-                    .foregroundStyle(potatoCondition.resultTextColor)
                 
+                ZStack(){
+                    RoundedRectangle(cornerRadius: 100)
+                        .fill(Color.glassGreen)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 100)
+                                .strokeBorder(Color.fontGreen, lineWidth: 2)
+                            
+                        )
+                        .frame(height: 50)
+                        .padding(.horizontal, 50)
+                    Text(potatoCondition.resultText)
+                        .font(.custom("Poppins-Bold", size: 18))
+                        .foregroundStyle(potatoCondition.resultTextColor)
+                }
                 // potato image
                 potatoCondition.resultImage
                 // condition list row?
