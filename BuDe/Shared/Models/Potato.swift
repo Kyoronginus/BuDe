@@ -11,6 +11,7 @@ struct Potato: Identifiable {
     let id = UUID()
     let name: String
     let action: String
+    let tips: String
     let handle: PotatoHandlingModel
     let isRecommended: Bool
 }
