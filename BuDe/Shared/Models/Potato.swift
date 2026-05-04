@@ -12,7 +12,6 @@ struct Potato: Identifiable {
     let name: String
     let action: String
     let handle: PotatoHandlingModel
-    let storage: [String]
     let isRecommended: Bool
 }
 

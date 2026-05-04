@@ -17,7 +17,7 @@ struct ScanView: View {
                 .ignoresSafeArea()
             
             VStack {
-                if let potato = Potato.data.first {
+                if Potato.data.first != nil {
                     ConditionCard(condition: Potato.data[0])
                         .padding(.top, 60)
                         .transition(.move(edge: .top).combined(with: .opacity))

@@ -7,12 +7,13 @@
 
 import SwiftUI
 
-struct Style: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
-
-#Preview {
-    Style()
+extension Color {
+    static let fontRed: Color = Color(hex: "E9152D")
+    static let glassRed: Color = Color(hex: "FFD6DA").opacity(0.55)
+    static let fontGreen: Color = Color(hex: "008932")
+    static let glassGreen: Color = Color(hex: "E4FFEB").opacity(0.55)
+    static let fontDark: Color = Color(hex: "444444")
+    static let yellowBackground: Color = Color(hex: "FFCC00")
+    static let glassYellow: Color = Color(hex: "FFE5B0")
+    static let white: Color = Color(hex: "FFFFFF")
 }
