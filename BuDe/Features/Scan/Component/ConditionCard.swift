@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ConditionCard: View {
-    let condition: Potato
+    let title: String
+    let condition: [Potato]
+    
+    var isRecommended: Bool {
+        title == "Safe to Eat"
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,21 +22,44 @@ struct ConditionCard: View {
                 .scaledToFit()
                 .frame(width: 50, height: 50)
             
-            Text(condition.action)
-                .font(.headline)
-                .foregroundStyle(condition.isRecommended ? Color.fontGreen : Color.fontRed)
+            Text(title)
+                .font(Font.title)
+                .foregroundStyle(isRecommended ? Color.fontGreen : Color.fontRed)
             
-            Text(condition.name)
-                .font(.caption)
-                .foregroundStyle(condition.isRecommended ? Color.fontGreen : Color.fontRed)
+            VStack(alignment: .leading) {
+                ForEach(condition) { potato in
+                    HStack {
+                        Circle()
+                            .fill(potato.isRecommended ? Color.fontGreen : Color.fontRed)
+                            .frame(width: 10, height: 10)
+                            .padding(4)
+                        
+                        Text(potato.name)
+                            .font(Font.caption)
+                            .foregroundStyle(Color.fontDark)
+                    }
+                }
+            }
+            
+            Spacer()
+            
+            Button(action: {}) {
+                Text("Read More Details")
+                    .font(Font.caption)
+                    .foregroundStyle(Color.fontDark)
+                    .frame(maxWidth: .infinity)
+                    .padding(8)
+                    .background(.white.opacity(0.9))
+                    .cornerRadius(20)
+            }
         }
         .padding()
-        .background(condition.isRecommended ? Color.glassGreen : Color.glassRed)
+        .background(isRecommended ? Color.glassGreen : Color.glassRed)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
     }
 }
 
 #Preview {
-    ConditionCard(condition: Potato.data[0])
+    ConditionCard(title: "Safe to Eat", condition: Potato.data)
 }

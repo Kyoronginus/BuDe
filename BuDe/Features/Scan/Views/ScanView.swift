@@ -54,31 +54,26 @@ struct ScanView: View {
             
             VStack {
                 if !viewModel.results.isEmpty {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 12) {
-                            ForEach(viewModel.results) { potato in
-                                ConditionCard(condition: potato)
-                                    .frame(width: 250)
-                                }
-                            }
+                    HStack(alignment: .top, spacing: 12) {
+        
+                        let safePotatoes = viewModel.results.filter { $0.action == "Safe to Eat" }
+                        if !safePotatoes.isEmpty {
+                            ConditionCard(title: "Safe to Eat", condition: safePotatoes)
                         }
+                        
+                        let riskyPotatoes = viewModel.results.filter { $0.action == "Not recommended" }
+                        if !riskyPotatoes.isEmpty {
+                            ConditionCard(title: "Not Recommended", condition: riskyPotatoes)
+                        }
+                    }
+                    .padding(.top, 40)
+                    .padding(.horizontal, 16)
                     
                     Spacer()
-                    
-                    Button(action: {
-                    }) {
-                        Text("Read more the result")
-                            .font(Font.body)
-                            .foregroundColor(.black)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
-                            .background(Color.yellow)
-                            .cornerRadius(16)
-                    }
-                    .padding(.bottom, 10)
                 } else {
                     Spacer()
                 }
+            }
                 
                 HStack(spacing: 12) {
                     Image(systemName: "questionmark.circle.fill")
@@ -96,9 +91,7 @@ struct ScanView: View {
                 .cornerRadius(20)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
-            }
-        }
-        .onAppear {
+            }.onAppear {
             viewModel.cameraManager.start()
         }
         .onDisappear {
