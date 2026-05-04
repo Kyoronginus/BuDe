@@ -43,6 +43,7 @@ class MLService {
                 completion([])
                 return
             }
+            print(results)
             completion(results)
         } catch {
             print("failed to predict: \(error.localizedDescription)")
