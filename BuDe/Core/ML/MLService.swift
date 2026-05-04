@@ -5,3 +5,48 @@
 //  Created by Tohru Djunaedi Sato on 01/05/26.
 //
 
+import CoreML
+import Vision
+import CoreVideo
+
+class MLService {
+    
+    private var detectionRequest: VNCoreMLRequest?
+    init() { setupModel()}
+    
+    private func setupModel() {
+        do {
+            let model_config = MLModelConfiguration()
+            let core_model = try yolov11n_kentangv6(configuration: model_config).model
+            let vision_model = try VNCoreMLModel(for: core_model)
+            detectionRequest = VNCoreMLRequest(model: vision_model)
+            detectionRequest?.imageCropAndScaleOption = .scaleFill
+            
+        } catch {
+            print("fail to load the ML model: \(error.localizedDescription)")
+        }
+    }
+    
+    func predict(pixelBuffer: CVPixelBuffer, completion: @escaping ([VNRecognizedObjectObservation]) -> Void) {
+        
+        guard let request = detectionRequest else {
+            completion([])
+            return
+        }
+        
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+        
+        do {
+            try handler.perform([request])
+            
+            guard let results = request.results as? [VNRecognizedObjectObservation] else {
+                completion([])
+                return
+            }
+            completion(results)
+        } catch {
+            print("failed to predict: \(error.localizedDescription)")
+            completion([])
+        }
+    }
+}
