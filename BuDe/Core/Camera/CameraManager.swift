@@ -10,22 +10,46 @@ import AVFoundation // access camera
 import CoreVideo // for cvpixelbuffer format image
 import Combine
 
+// Enumaration
+enum CameraManagerErrorHandling: Error{
+    var id: String{UUID().uuidString}
+    case cameraNotAvailable
+    case inputFailed(String)
+    case permissionDenied
+    
+    var errorDesc: String?{
+        switch self{
+        case .cameraNotAvailable:
+            return "Camera is not available in this device!"
+        case .inputFailed(let message):
+            return "Fail to access the camera \(message)"
+        case .permissionDenied:
+            return "Camera permission denied. Please allow the camera in Settings."
+        }
+        
+    }
+}
+
 class CameraManager: NSObject, ObservableObject {
     
     let camSession = AVCaptureSession()
     private let videoOutput = AVCaptureVideoDataOutput() // output gambar
     var onFrameCaptured: ((CVPixelBuffer) -> Void)?
+    
+    @Published var currentError: CameraManagerErrorHandling?
     override init() {
         super.init()
         setupCamera()
     }
     
-    private func setupCamera(){
+    private func setupCamera() {
         camSession.beginConfiguration()
         
         guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
         else {
-            print("cam not found!")
+            DispatchQueue.main.async{
+                self.currentError = .cameraNotAvailable
+            }
             return
         }
         
@@ -39,19 +63,42 @@ class CameraManager: NSObject, ObservableObject {
             if camSession.canAddOutput(videoOutput){
                 camSession.addOutput(videoOutput)
             }
-        } catch{
-            print("failed: \(error.localizedDescription)")
+            
+        } catch let error as NSError {
+            DispatchQueue.main.async{
+                self.currentError = .inputFailed(error.localizedDescription)
+            }
         }
         
         camSession.commitConfiguration()
     }
     
-    func start(){
+    private func runSession(){
         DispatchQueue.global(qos: .background).async{
             self.camSession.startRunning()
         }
     }
     
+    func start(){
+        switch AVCaptureDevice.authorizationStatus(for: .video){
+            case .authorized:
+                runSession()
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video){ granted in
+                    if granted{self.runSession()}
+                    else {
+                        DispatchQueue.main.async{
+                            self.currentError = .permissionDenied
+                        }
+                    }
+                }
+            default:
+                DispatchQueue.main.async{
+                    self.currentError = .permissionDenied
+                }
+            }
+        }
+        
     func stop(){
         self.camSession.stopRunning()
     }
