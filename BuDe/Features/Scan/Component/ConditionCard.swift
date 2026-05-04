@@ -10,20 +10,21 @@ import SwiftUI
 struct ConditionCard: View {
     let title: String
     let condition: [Potato]
+    @State var isDetailShown: Bool = false
     
     var isRecommended: Bool {
-        title == "Safe to Eat"
+        title == "Likely Recommended"
     }
     
     var body: some View {
         VStack(alignment: .leading) {
-            Image(systemName: "questionmark.circle.fill")
+            Image(isRecommended ? "happyPotato" : "sadPotato")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 50, height: 50)
+                .frame(width: 50, height: 50, alignment: .leading)
             
             Text(title)
-                .font(Font.title)
+                .font(.title)
                 .foregroundStyle(isRecommended ? Color.fontGreen : Color.fontRed)
             
             VStack(alignment: .leading) {
@@ -35,19 +36,19 @@ struct ConditionCard: View {
                             .padding(4)
                         
                         Text(potato.name)
-                            .font(Font.caption)
+                            .font(.caption)
                             .foregroundStyle(Color.fontDark)
                     }
                 }
             }
             
-            Spacer()
-            
-            Button(action: {}) {
+            Button(action: {
+                isDetailShown.toggle()
+            }) {
                 Text("Read More Details")
-                    .font(Font.caption)
+                    .font(.caption)
                     .foregroundStyle(Color.fontDark)
-                    .frame(maxWidth: .infinity)
+                    .frame(alignment: .trailing)
                     .padding(8)
                     .background(.white.opacity(0.9))
                     .cornerRadius(20)
@@ -57,9 +58,12 @@ struct ConditionCard: View {
         .background(isRecommended ? Color.glassGreen : Color.glassRed)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
+//        .sheet(isPresented: $isDetailShown) {
+//            DetailView(viewModel: DetailViewModel(detectedPotatoes: condition, isRecommended: self.isRecommended))
+//        }
     }
 }
 
 #Preview {
-    ConditionCard(title: "Safe to Eat", condition: Potato.data)
+    ConditionCard(title: "Likely Recommended", condition: Potato.data)
 }

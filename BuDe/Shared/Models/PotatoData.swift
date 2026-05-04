@@ -12,8 +12,8 @@ enum PotatoHandlingTips {
     case blackScurf
     case commonScab
     case sprouted
-    case greenSkin
-    case rotten
+    case greenPotato
+    case rot
     
     var handle: PotatoHandlingModel {
         switch self {
@@ -22,7 +22,7 @@ enum PotatoHandlingTips {
                 texts: ["Avoid direct sun", "Keep cool & dry", "Use breatheable storage"],
                 images: [Image("avoid-direct-sun"), Image("keep-cool-&-dry"), Image("use-breatheable-storage")]
             )
-        case .sprouted, .greenSkin, .rotten:
+        case .sprouted, .greenPotato, .rot:
             return PotatoHandlingModel(
                 texts: ["Cut damaged parts", "Use good parts", "Finish immediately"],
                 images: [Image("cut-damaged-parts"), Image("use-good-parts"), Image("finish-immediately")]
@@ -36,21 +36,21 @@ extension Potato {
     static let data: [Potato] = [
         Potato(
             name: "Healthy",
-            action: "Safe to Eat",
+            action: "Likely Recommended",
             tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition",
             handle: PotatoHandlingTips.healthy.handle,
             isRecommended: true
         ),
         Potato(
             name: "Black Scurf",
-            action: "Safe to Eat",
+            action: "Likely Recommended",
             tips: "Black scurf appears as dark patches on the skin but does not affect the inside, so the potato is still safe to eat when peeled",
             handle: PotatoHandlingTips.blackScurf.handle,
             isRecommended: true
         ),
         Potato(
             name: "Common Scab",
-            action: "Safe to Eat",
+            action: "Likely Recommended",
             tips: "Common scab causes rough, scaly spots on the skin but is harmless and the potato remains safe to eat",
             handle: PotatoHandlingTips.commonScab.handle,
             isRecommended: true
@@ -66,14 +66,14 @@ extension Potato {
             name: "Green Potato",
             action: "Not recommended",
             tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
-            handle: PotatoHandlingTips.greenSkin.handle,
+            handle: PotatoHandlingTips.greenPotato.handle,
             isRecommended: false
         ),
         Potato(
             name: "Rot",
             action: "Not recommended",
             tips: "Soft or rotten potatoes show signs of decay and should be discarded",
-            handle: PotatoHandlingTips.rotten.handle,
+            handle: PotatoHandlingTips.rot.handle,
             isRecommended: false
         )]
 }

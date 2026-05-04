@@ -24,14 +24,12 @@ struct ScanView: View {
                     let boxColor: Color = (label == "Healthy" || label == "Common Scab" || label == "Black Scurf") ? .green : .red
                     
                     ZStack {
-                        Rectangle() // box outline
+                        Rectangle()
                             .stroke(boxColor, lineWidth: 2)
                         
-                        // in box
                         Rectangle()
                             .fill(boxColor.opacity(0.15))
-                        
-                        // text
+                    
                         VStack {
                             Text(label)
                                 .font(Font.boundingBoxText)
@@ -56,9 +54,9 @@ struct ScanView: View {
                 if !viewModel.results.isEmpty {
                     HStack(alignment: .top, spacing: 12) {
         
-                        let safePotatoes = viewModel.results.filter { $0.action == "Safe to Eat" }
+                        let safePotatoes = viewModel.results.filter { $0.action == "Likely Recommended" }
                         if !safePotatoes.isEmpty {
-                            ConditionCard(title: "Safe to Eat", condition: safePotatoes)
+                            ConditionCard(title: "Likely Recommended", condition: safePotatoes)
                         }
                         
                         let riskyPotatoes = viewModel.results.filter { $0.action == "Not recommended" }
@@ -76,7 +74,7 @@ struct ScanView: View {
             }
                 
                 HStack(spacing: 12) {
-                    Image(systemName: "questionmark.circle.fill")
+                    Image(systemName: "thinkPotato")
                         .resizable()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.yellow)

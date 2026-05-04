@@ -2,7 +2,7 @@
 //  DetailView.swift
 //  BuDe
 //
-//  Created by Tohru Djunaedi Sato on 01/05/26.
+//  Created by Gabriella Angelina Widjaja on 04/05/26.
 //
 import SwiftUI
 
@@ -107,3 +107,14 @@ struct DetailView: View {
     DetailView()
 }
 
+import SwiftUI
+
+struct DetailView: View {
+    var body: some View {
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    }
+}
+
+#Preview {
+    DetailView()
+}
