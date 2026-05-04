@@ -19,14 +19,14 @@ struct ConditionCard: View {
             
             Text(condition.action)
                 .font(.headline)
-                .foregroundStyle(condition.isRecommended ? Color.glassGreen : Color.glassRed)
+                .foregroundStyle(condition.isRecommended ? Color.fontGreen : Color.fontRed)
             
             Text(condition.name)
                 .font(.caption)
-                .foregroundStyle(condition.isRecommended ? .green : .red)
+                .foregroundStyle(condition.isRecommended ? Color.fontGreen : Color.fontRed)
         }
         .padding()
-        .background(condition.isRecommended ? .green.opacity(0.1) : .red.opacity(0.15))
+        .background(condition.isRecommended ? Color.glassGreen : Color.glassRed)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
     }

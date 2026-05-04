@@ -9,7 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct ScanView: View {
-    @StateObject var viewModel = ScanViewModel()
+    @State var viewModel = ScanViewModel()
     
     var body: some View {
         ZStack {
