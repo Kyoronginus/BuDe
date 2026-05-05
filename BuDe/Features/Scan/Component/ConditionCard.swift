@@ -12,6 +12,8 @@ struct ConditionCard: View {
     let condition: [Potato]
     @State var isDetailShown: Bool = false
     
+    var onToggleSheet: (Bool) -> Void
+    
     var isRecommended: Bool {
         title == "Likely Recommended"
     }
@@ -43,6 +45,7 @@ struct ConditionCard: View {
             
             Button(action: {
                 isDetailShown.toggle()
+                onToggleSheet(isDetailShown)
             }) {
                 Text("Read More Details")
                     .font(.caption)
@@ -57,12 +60,14 @@ struct ConditionCard: View {
         .background(isRecommended ? Color.glassGreen : Color.glassRed)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
-        .sheet(isPresented: $isDetailShown) {
+        .sheet(isPresented: $isDetailShown, onDismiss: {
+            onToggleSheet(false)
+        }) {
             DetailView(viewModel: DetailViewModel(detectedPotatoes: condition, isRecommended: self.isRecommended))
         }
     }
 }
-
-#Preview {
-    ConditionCard(title: "Likely Recommended", condition: Potato.data)
-}
+//
+//#Preview {
+//    ConditionCard(title: "Likely Recommended", condition: Potato.data)
+//}
