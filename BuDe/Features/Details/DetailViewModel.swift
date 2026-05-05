@@ -19,8 +19,8 @@ enum PotatoCondition {
     
     var resultTextColor: Color {
         switch self {
-        case .safeToEat: return Color(hex: "00A86B")
-        case .notRecommended: return Color(hex: "E9152D")
+        case .safeToEat: return Color.fontGreen
+        case .notRecommended: return Color.fontRed
         }
     }
     
@@ -63,6 +63,6 @@ class DetailViewModel {
     }
     
     var handlingTips: PotatoHandlingModel {
-        return detectedPotatoes.first?.handle ?? Potato.data[0].handle
+        return detectedPotatoes.first!.handle
     }
 }

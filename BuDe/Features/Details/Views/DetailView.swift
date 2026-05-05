@@ -46,30 +46,39 @@ struct DetailView: View {
                 viewModel.overallCondition.resultImage
                 
                 
-                // condition list row?
-                HStack(spacing: 20){
-                    if !viewModel.notRecommendedPotatoes.isEmpty {
-                        conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes)
-                    }
-                    if !viewModel.recommendedPotatoes.isEmpty {
-                        conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes)
-                    }
-
-
+                // condition list row
+                HStack{
+                    Text("Condition")
+                        .font(Font.subtitle)
+                    Spacer()
                 }
-                .frame(height: 100)
+                    
+                VStack {
+                    if !viewModel.notRecommendedPotatoes.isEmpty && !viewModel.recommendedPotatoes.isEmpty {
+                        // segmented contrl
+                    }
+                    
+                    HStack(spacing: 20){
+                        if !viewModel.notRecommendedPotatoes.isEmpty {
+                            conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes)
+                        }
+                        if !viewModel.recommendedPotatoes.isEmpty {
+                            conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes)
+                        }
+                    }
+                }
 
                 
                 // Handling tips
                 HStack{
                     Text("Handling Tips")
+                        .font(Font.subtitle)
                     Spacer()
                 }
                 
                 ZStack {
                     RoundedRectangle(cornerRadius: 14)
-                        .fill(Color(hex: "FFFFFF"))
-                        .opacity(1.0)
+                        .fill(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 14)
                                 .strokeBorder(Color(hex: "F0F0F0"), lineWidth: 2)
