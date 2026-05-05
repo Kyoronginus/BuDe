@@ -65,27 +65,31 @@ struct ScanView: View {
                     }
                     .padding(.top, 40)
                     .padding(.horizontal, 16)
+                    
+                    Spacer()
+                } else {
+                    Spacer()
                 }
+                HStack(spacing: 16) {
+                    Image("thinkPotato")
+                        .resizable()
+                        .frame(width: 40, height: 60)
+                        .foregroundColor(Color.glassYellow)
+                    
+                    Text("Scan the whole area for\naccurate results.")
+                        .font(.body)
+                        .foregroundColor(.white)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                        .lineSpacing(4)
+                }
+                .padding(4)
+                .frame(maxWidth: 270)
+                .background(.ultraThinMaterial)
+                .cornerRadius(20)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 30)
             }
-            
-            Spacer()
-            
-            HStack(spacing: 12) {
-                Image("thinkPotato")
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .foregroundColor(.yellow)
-                
-                Text("Scan the whole area for accurate results.")
-                    .font(.body)
-                    .foregroundColor(.white)
-            }
-            .padding(.vertical, 24)
-            .frame(maxWidth: .infinity)
-            .background(.ultraThinMaterial)
-            .cornerRadius(20)
-            .padding(.horizontal, 20)
-            .padding(.bottom, 30)
         }.onAppear {
             viewModel.cameraManager.start()
         }
@@ -104,4 +108,8 @@ struct ScanView: View {
             )
         }
     }
+}
+
+#Preview {
+    ScanView()
 }
