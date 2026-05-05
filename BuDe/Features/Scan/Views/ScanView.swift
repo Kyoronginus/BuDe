@@ -29,7 +29,7 @@ struct ScanView: View {
                         
                         Rectangle()
                             .fill(boxColor.opacity(0.15))
-                    
+                        
                         VStack {
                             Text(label)
                                 .font(Font.boundingBoxText)
@@ -52,7 +52,7 @@ struct ScanView: View {
             VStack {
                 if !viewModel.results.isEmpty {
                     HStack(alignment: .top, spacing: 12) {
-        
+                        
                         let safePotatoes = viewModel.results.filter { $0.action == "Likely Recommended" }
                         if !safePotatoes.isEmpty {
                             ConditionCard(title: "Likely Recommended", condition: safePotatoes)
@@ -65,30 +65,28 @@ struct ScanView: View {
                     }
                     .padding(.top, 40)
                     .padding(.horizontal, 16)
-                    
-                    Spacer()
-                } else {
-                    Spacer()
                 }
             }
-                
+            
+            Spacer()
+            
             HStack(spacing: 12) {
-                    Image("thinkPotato")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundColor(.yellow)
-                    
-                    Text("Scan the whole area for accurate results.")
-                        .font(.body)
-                        .foregroundColor(.white)
-                }
-                .padding(.vertical, 12)
-                .frame(maxWidth: .infinity, alignment: .bottom)
-                .background(.ultraThinMaterial)
-                .cornerRadius(20)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 30)
-            }.onAppear {
+                Image("thinkPotato")
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .foregroundColor(.yellow)
+                
+                Text("Scan the whole area for accurate results.")
+                    .font(.body)
+                    .foregroundColor(.white)
+            }
+            .padding(.vertical, 24)
+            .frame(maxWidth: .infinity)
+            .background(.ultraThinMaterial)
+            .cornerRadius(20)
+            .padding(.horizontal, 20)
+            .padding(.bottom, 30)
+        }.onAppear {
             viewModel.cameraManager.start()
         }
         .onDisappear {
