@@ -42,7 +42,6 @@ struct ScanView: View {
                         }
                         .offset(y: -24)
                     }
-                    // box pos & size
                     .frame(width: boxWidth, height: boxHeight)
                     .position(x: centerX, y: centerY)
                     .animation(.easeInOut(duration: 0.2), value: centerX)
@@ -73,18 +72,18 @@ struct ScanView: View {
                 }
             }
                 
-            HStack(alignment: .bottom) {
+            HStack(spacing: 12) {
                     Image("thinkPotato")
                         .resizable()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.yellow)
                     
                     Text("Scan the whole area for accurate results.")
-                        .font(Font.body)
+                        .font(.body)
                         .foregroundColor(.white)
                 }
                 .padding(.vertical, 12)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .bottom)
                 .background(.ultraThinMaterial)
                 .cornerRadius(20)
                 .padding(.horizontal, 20)
