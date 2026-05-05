@@ -10,6 +10,8 @@ import Vision
     private let mlModel = MLService()
     private var lastPredictionTime = Date()
     
+    @ObservationIgnored var lastPixelBuffer: CVPixelBuffer? 
+    
     init() {
         setupMLConnection()
     }
@@ -20,6 +22,8 @@ import Vision
             
             let now = Date()
             guard now.timeIntervalSince(self.lastPredictionTime) >= 1.0 else {return}
+            
+            self.lastPixelBuffer = pixelBuffer
             
             self.mlModel.predict(pixelBuffer: pixelBuffer) { observations in
                 DispatchQueue.main.async {

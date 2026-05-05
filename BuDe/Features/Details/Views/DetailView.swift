@@ -24,6 +24,7 @@ struct DetailView: View {
                 // Potato
                 Text("Potato")
                     .font(.subtitle)
+                    .foregroundStyle(Color.fontDark)
                 
                 // recommended or not
                 ZStack(){
@@ -42,9 +43,17 @@ struct DetailView: View {
                 }
                 
                 
-                // potato image
-                viewModel.overallCondition.resultImage
-                
+                if let processedImage = viewModel.processedImage {
+                    processedImage
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 150)
+                } else {
+                    viewModel.overallCondition.resultImage
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 150)
+                }
                 
                 // condition list row
                 HStack{

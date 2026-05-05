@@ -5,7 +5,7 @@
 //  Created by Tohru Djunaedi Sato on 01/05/26.
 //
 import SwiftUI
-
+import Vision
 enum PotatoCondition {
     case safeToEat
     case notRecommended
@@ -43,11 +43,16 @@ enum PotatoCondition {
 class DetailViewModel {
     var detectedPotatoes: [Potato]
     var isRecommended: Bool
+    var pixelBuffer: CVPixelBuffer?
+    var processedImage: Image?
     
     
-    init(detectedPotatoes: [Potato], isRecommended: Bool) {
+    init(detectedPotatoes: [Potato], isRecommended: Bool, pixelBuffer: CVPixelBuffer? = nil) {
         self.detectedPotatoes = detectedPotatoes
         self.isRecommended = isRecommended
+        self.pixelBuffer = pixelBuffer
+        
+        generateMaskImage()
     }
     
     var recommendedPotatoes: [Potato] {
@@ -64,5 +69,40 @@ class DetailViewModel {
     
     var handlingTips: PotatoHandlingModel {
         return detectedPotatoes.first!.handle
+    }
+    
+    func generateMask() -> CVPixelBuffer? {
+        guard let pixelBuffer = self.pixelBuffer else {
+            return nil
+        }
+        
+        let request = VNGenerateForegroundInstanceMaskRequest ()
+        let handler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:])
+        
+        do {
+            try handler.perform([(request)])
+            guard let result = request.results?.first else {
+                // no foreground
+                return nil
+            }
+            let maskedBuffer = try result.generateMaskedImage(
+                ofInstances: result.allInstances,
+                from: handler,
+                croppedToInstancesExtent: true
+            )
+            return maskedBuffer
+        } catch {
+            // gagal membuat mask
+            return nil
+        }
+    }
+    
+    func generateMaskImage() {
+        guard let maskPixelBuffer = generateMask() else { return }
+        let ciImage = CIImage(cvPixelBuffer: maskPixelBuffer)
+        let context = CIContext()
+        if let cgImage = context.createCGImage(ciImage, from: ciImage.extent) {
+            self.processedImage = Image(uiImage: UIImage(cgImage: cgImage, scale: 1.0, orientation: .right))
+        }
     }
 }

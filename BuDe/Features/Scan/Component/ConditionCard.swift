@@ -6,13 +6,20 @@
 //
 
 import SwiftUI
+import Vision
 
 struct ConditionCard: View {
     let title: String
     let condition: [Potato]
     @State var isDetailShown: Bool = false
     
-    var onToggleSheet: (Bool) -> Void
+    var boundingBoxes: [VNRecognizedObjectObservation] = []
+    var onShowDetail: () -> Void = {}
+    var onDismissDetail: () -> Void = {}
+    
+    var fetchPixelBuffer: (() -> CVPixelBuffer?)? = nil
+    
+    var onToggleSheet: (Bool) -> Void = { _ in }
     
     var isRecommended: Bool {
         title == "Likely Recommended"
@@ -62,12 +69,13 @@ struct ConditionCard: View {
         .cornerRadius(16)
         .sheet(isPresented: $isDetailShown, onDismiss: {
             onToggleSheet(false)
+            onDismissDetail()
         }) {
-            DetailView(viewModel: DetailViewModel(detectedPotatoes: condition, isRecommended: self.isRecommended))
+            DetailView(viewModel: DetailViewModel(
+                detectedPotatoes: condition,
+                isRecommended: self.isRecommended,
+                pixelBuffer: fetchPixelBuffer?()
+            ))
         }
     }
 }
-//
-//#Preview {
-//    ConditionCard(title: "Likely Recommended", condition: Potato.data)
-//}
