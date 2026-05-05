@@ -2,7 +2,7 @@
 //  DetailViewModel.swift
 //  BuDe
 //
-//  Created by Gabriella Angelina Widjaja on 04/05/26.
+//  Created by Tohru Djunaedi Sato on 01/05/26.
 //
 import SwiftUI
 
@@ -19,8 +19,15 @@ enum PotatoCondition {
     
     var resultTextColor: Color {
         switch self {
-        case .safeToEat: return Color(hex: "00A86B")
-        case .notRecommended: return Color(hex: "E9152D")
+        case .safeToEat: return Color.fontGreen
+        case .notRecommended: return Color.fontRed
+        }
+    }
+    
+    var resultBoxColor: Color {
+        switch self {
+        case .safeToEat: return Color.glassGreen
+        case .notRecommended: return Color.glassRed
         }
     }
     
@@ -32,14 +39,30 @@ enum PotatoCondition {
     }
 }
 
-import SwiftUI
-
-struct DetailViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+@Observable
+class DetailViewModel {
+    var detectedPotatoes: [Potato]
+    var isRecommended: Bool
+    
+    
+    init(detectedPotatoes: [Potato], isRecommended: Bool) {
+        self.detectedPotatoes = detectedPotatoes
+        self.isRecommended = isRecommended
     }
-}
-
-#Preview {
-    DetailViewModel()
+    
+    var recommendedPotatoes: [Potato] {
+        self.detectedPotatoes.filter({ $0.isRecommended })
+    }
+    
+    var notRecommendedPotatoes: [Potato] {
+        self.detectedPotatoes.filter({ !$0.isRecommended })
+    }
+    
+    var overallCondition: PotatoCondition {
+        return isRecommended ? .safeToEat : .notRecommended
+    }
+    
+    var handlingTips: PotatoHandlingModel {
+        return detectedPotatoes.first!.handle
+    }
 }

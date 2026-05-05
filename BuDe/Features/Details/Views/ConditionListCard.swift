@@ -34,38 +34,58 @@ enum CardType {
 
 struct conditionListCard: View {
     let type: CardType
-    let opacityValue: Double = 1.0
-    let issuesCount: Int = 0
-    let goodAreasCount: Int = 0
+    let potatoes: [Potato]
     
     var body: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: 14)
-                .fill(type.cardColor)
-                .opacity(opacityValue)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 14)
-                        .strokeBorder(type.borderColor, lineWidth: 2)
-                )
-                
-            VStack{
-                HStack {
-                    
-                    Text( type == .issue ? "❌ \(issuesCount) Issues Found" : "✅ \(goodAreasCount) Good Areas")
-                        .font(.custom("Nunito-Bold", size: 14))
+        VStack (alignment: .leading, spacing: 12) {
+            ForEach(potatoes) { potato in
+                VStack (alignment: .leading, spacing: 4){
+                    Text("• \(potato.name)")
+                        .font(Font.subtitle)
                         .foregroundStyle(type.textColor)
                     
-                    // todo: looping buat nunjukin issues nya
-                    
+                    Text(potato.tips)
+                        .font(Font.body)
                 }
             }
         }
+        .padding(16)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(type.cardColor)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 14)
+                .strokeBorder(type.borderColor, lineWidth: 2)
+        )
     }
 }
 
 #Preview {
     VStack {
-        conditionListCard(type: .issue)
-        conditionListCard(type: .good)
+        conditionListCard(type: .issue, potatoes: [
+            Potato(
+                name: "Sprouted",
+                action: "Not recommended",
+                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
+                handle: PotatoHandlingTips.sprouted.handle,
+                isRecommended: false
+            ),
+            Potato(
+                name: "Green Potato",
+                action: "Not recommended",
+                tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
+                handle: PotatoHandlingTips.greenSkin.handle,
+                isRecommended: false
+            ),
+            Potato(
+                name: "Rot",
+                action: "Not recommended",
+                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
+                handle: PotatoHandlingTips.rotten.handle,
+                isRecommended: false
+            )
+        ])
+//        conditionListCard(type: .good)
     }
 }
