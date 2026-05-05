@@ -57,6 +57,7 @@ struct ScanView: View {
                 Spacer().frame(height: 200)
             }
             .allowsHitTesting(false)
+            
             VStack {
                 if !viewModel.results.isEmpty {
                     HStack(alignment: .top, spacing: 12) {

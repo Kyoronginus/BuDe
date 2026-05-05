@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import Vision
+
 enum PotatoCondition {
     case safeToEat
     case notRecommended

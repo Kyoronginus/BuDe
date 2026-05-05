@@ -18,6 +18,8 @@ extension Color {
     static let white: Color = Color(hex: "FFFFFF")
     static let backgroundColor: Color = Color(hex: "F1EDE0")
     static let borderWhite: Color = Color(hex: "F0F0F0")
+    static let backgroundRed: Color = Color(hex: "FFE1E5")
+    static let backgroundGreen: Color = Color(hex: "DEFFE1")
 }
 
 extension Font {

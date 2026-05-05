@@ -12,22 +12,22 @@ enum CardType {
     
     var cardColor: Color {
         switch self {
-        case .issue: return Color(hex: "FFE1E5")
-        case .good: return Color(hex: "DEFFE1")
+        case .issue: return Color.backgroundRed
+        case .good: return Color.backgroundGreen
         }
     }
     
     var borderColor: Color {
         switch self{
-        case .issue: return Color(hex: "FFD6DA")
-        case .good : return Color(hex: "B5F9BA")
+        case .issue: return Color.glassRed
+        case .good : return Color.glassGreen
         }
     }
     
     var textColor: Color {
         switch self {
-        case .issue: return Color(hex: "E9152D")
-        case .good: return Color(hex: "008932")
+        case .issue: return Color.fontRed
+        case .good: return Color.fontGreen
         }
     }
 }

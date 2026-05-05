@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Vision
+import CoreVideo
 
 struct ConditionCard: View {
     let title: String
