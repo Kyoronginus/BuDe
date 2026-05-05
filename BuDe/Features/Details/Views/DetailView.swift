@@ -17,13 +17,13 @@ struct DetailView: View {
     var body: some View {
         ZStack{
             // warna background ny
-            Color(hex: "F1EDE0")
+            Color.backgroundColor
                 .ignoresSafeArea()
             
             VStack{
                 // Potato
                 Text("Potato")
-                    .font(.custom("Poppins-SemiBold", size: 16))
+                    .font(.subtitle)
                 
                 // recommended or not
                 ZStack(){
@@ -49,7 +49,8 @@ struct DetailView: View {
                 // condition list row
                 HStack{
                     Text("Condition")
-                        .font(Font.subtitle)
+                        .font(.subtitle)
+                        .foregroundStyle(Color.fontDark)
                     Spacer()
                 }
                     
@@ -68,7 +69,8 @@ struct DetailView: View {
 
                 HStack{
                     Text("Handling Tips")
-                        .font(Font.subtitle)
+                        .font(.subtitle)
+                        .foregroundStyle(Color.fontDark)
                     Spacer()
                 }
                 
@@ -77,7 +79,7 @@ struct DetailView: View {
                         .fill(Color.white)
                         .overlay(
                             RoundedRectangle(cornerRadius: 14)
-                                .strokeBorder(Color(hex: "F0F0F0"), lineWidth: 2)
+                                .strokeBorder(Color.borderWhite, lineWidth: 2)
                         )
                     HStack() {
                         ForEach(0..<viewModel.handlingTips.texts.count, id: \.self) { index in
@@ -86,7 +88,8 @@ struct DetailView: View {
                                     .resizable()
                                     .frame(width: 70, height: 70)
                                 Text(viewModel.handlingTips.texts[index])
-                                    .font(.custom("Poppins-SemiBold", size: 9))
+                                    .font(.handlingText)
+                                    .multilineTextAlignment(.center)
                             }
                             .frame(maxWidth: .infinity)
                         }
@@ -98,11 +101,11 @@ struct DetailView: View {
                 // great job! thingy
                 ZStack {
                     RoundedRectangle(cornerRadius: 14)
-                        .fill(Color(hex: "FFE5B0"))
+                        .fill(Color.glassYellow)
                         .opacity(1.0)
                         .overlay(
                             RoundedRectangle(cornerRadius: 14)
-                                .strokeBorder(Color(hex: "FFC107"), lineWidth: 2)
+                                .strokeBorder(Color.yellowBackground, lineWidth: 2)
                         )
                         .frame(height: 70)
                     HStack{
@@ -111,8 +114,8 @@ struct DetailView: View {
                             .padding(10)
                             .frame(width: 70, height:70)
                         Text("Great job! You're taking good care of your potato!")
-                            .font(.custom("Poppins-Regular", size: 14))
-                            .foregroundStyle(Color(hex: "444444"))
+                            .font(.body)
+                            .foregroundStyle(Color.fontDark)
                         Spacer()
                     }
                 }.padding(.top, 16)

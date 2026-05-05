@@ -47,11 +47,12 @@ struct conditionListCard: View {
                             .frame(width: 8, height: 8)
                         
                         Text("\(potato.name)")
-                            .font(Font.subtitle)
+                            .font(.subtitle)
                             .foregroundStyle(type.textColor)
                     }
                     Text(potato.tips)
-                        .font(Font.body)
+                        .font(.body)
+                        .foregroundStyle(Color.fontDark)
                 }
             }
         }

@@ -13,9 +13,11 @@ extension Color {
     static let fontGreen: Color = Color(hex: "008932")
     static let glassGreen: Color = Color(hex: "E4FFEB").opacity(0.6)
     static let fontDark: Color = Color(hex: "444444")
-    static let yellowBackground: Color = Color(hex: "FFCC00")
+    static let yellowBackground: Color = Color(hex: "FFC107")
     static let glassYellow: Color = Color(hex: "FFE5B0")
     static let white: Color = Color(hex: "FFFFFF")
+    static let backgroundColor: Color = Color(hex: "F1EDE0")
+    static let borderWhite: Color = Color(hex: "F0F0F0")
 }
 
 extension Font {
@@ -24,4 +26,5 @@ extension Font {
     static let body: Font = .custom("Poppins-Regular", size: 14)
     static let caption: Font = .custom("Poppins-Semibold", size: 12)
     static let boundingBoxText: Font = .custom("Poppins-Bold", size: 10)
+    static let handlingText: Font = .custom("Poppins-SemiBold", size: 10)
 }
