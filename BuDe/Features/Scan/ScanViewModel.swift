@@ -1,5 +1,4 @@
-import Combine
-import Foundation
+import SwiftUI
 import Vision
 
 @Observable class ScanViewModel {
@@ -19,7 +18,6 @@ import Vision
         cameraManager.onFrameCaptured = { [weak self] pixelBuffer in
             guard let self = self else { return }
             
-            // delay 1 secs
             let now = Date()
             guard now.timeIntervalSince(self.lastPredictionTime) >= 1.0 else {return}
             

@@ -54,10 +54,6 @@ struct DetailView: View {
                 }
                     
                 VStack {
-                    if !viewModel.notRecommendedPotatoes.isEmpty && !viewModel.recommendedPotatoes.isEmpty {
-                        // segmented contrl
-                    }
-                    
                     HStack(spacing: 20){
                         if !viewModel.notRecommendedPotatoes.isEmpty {
                             conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes)
@@ -68,9 +64,8 @@ struct DetailView: View {
                     }
                 }
                 .frame(maxWidth: .infinity)
+                .padding(.bottom, 8)
 
-                
-                // Handling tips
                 HStack{
                     Text("Handling Tips")
                         .font(Font.subtitle)
@@ -120,7 +115,7 @@ struct DetailView: View {
                             .foregroundStyle(Color(hex: "444444"))
                         Spacer()
                     }
-                }
+                }.padding(.top, 16)
             }
             .padding(20)
         }

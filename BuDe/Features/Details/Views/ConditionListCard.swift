@@ -40,16 +40,23 @@ struct conditionListCard: View {
         VStack (alignment: .leading, spacing: 12) {
             ForEach(potatoes) { potato in
                 VStack (alignment: .leading, spacing: 4){
-                    Text("• \(potato.name)")
-                        .font(Font.subtitle)
-                        .foregroundStyle(type.textColor)
                     
+                    HStack {
+                        Circle()
+                            .fill(type.textColor)
+                            .frame(width: 8, height: 8)
+                        
+                        Text("\(potato.name)")
+                            .font(Font.subtitle)
+                            .foregroundStyle(type.textColor)
+                    }
                     Text(potato.tips)
                         .font(Font.body)
                 }
             }
         }
-        .padding(16)
+        .frame(maxWidth: .infinity)
+        .padding()
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(type.cardColor)
