@@ -54,7 +54,7 @@ struct ScanView: View {
                 ScannerCorners()
                     .stroke(Color.white, style: StrokeStyle(lineWidth: 3, lineCap: .round))
                     .frame(width: 320, height: 320)
-                Spacer().frame(height: 170)
+                Spacer().frame(height: 200)
             }
             .allowsHitTesting(false)
             VStack {
@@ -99,14 +99,6 @@ struct ScanView: View {
                 .padding(.bottom, 30)
             }
             
-            VStack{
-                Spacer()
-                ScannerCorners()
-                    .stroke(Color.white, style: StrokeStyle(lineWidth: 3, lineCap: .round))
-                    .frame(width: 320, height: 320)
-                Spacer().frame(height: 170)
-            }
-            .allowsHitTesting(false)
         }.onAppear {
             viewModel.cameraManager.start()
         }
