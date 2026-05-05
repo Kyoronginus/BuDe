@@ -5,12 +5,13 @@
 //  Created by Tohru Djunaedi Sato on 01/05/26.
 //
 import SwiftUI
+import Vision
 
 struct DetailView: View {
-//    let potato: Potato
-//    let potatoCondition: PotatoCondition
-//    let handlingTips: PotatoHandlingModel
-        
+    //    let potato: Potato
+    //    let potatoCondition: PotatoCondition
+    //    let handlingTips: PotatoHandlingModel
+    
     var viewModel: DetailViewModel
     
     
@@ -48,6 +49,40 @@ struct DetailView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 150)
+                        .overlay(
+                            // gambar bounding box
+                            GeometryReader { geometry in
+                                ForEach(viewModel.boundingBoxes, id: \.uuid) { observation in
+                                    let boundingBox = observation.boundingBox
+                                    
+                                    let boxWidth = boundingBox.width * geometry.size.width
+                                    let boxHeight = boundingBox.height * geometry.size.height
+                                    
+                                    let centerX = boundingBox.midX * geometry.size.width
+                                    let centerY = (1.0 - boundingBox.midY) * geometry.size.height
+                                    
+                                    let label = observation.labels.first?.identifier ?? ""
+                                    let boxColor: Color = (label == "Healthy" || label == "Common Scab" || label == "Black Scurf") ? .green : .red
+                                    
+                                    ZStack {
+                                        Rectangle()
+                                            .stroke(boxColor, lineWidth: 2)
+                                        
+                                        Rectangle()
+                                            .fill(boxColor.opacity(0.15))
+                                    }
+                                    .frame(width: boxWidth, height: boxHeight)
+                                    
+                                    .contentShape(Rectangle())
+                                    .onTapGesture {
+                                        let isGreen = (label == "Healthy" || label == "Common Scab" || label == "Black Scurf")
+                                        viewModel.switchCondition(isGreen: isGreen)
+                                    }
+                                    .position(x: centerX, y: centerY)
+                                }
+                            }
+                        )
+                        .scaleEffect(1.2)
                 } else {
                     viewModel.overallCondition.resultImage
                         .resizable()
@@ -62,7 +97,7 @@ struct DetailView: View {
                         .foregroundStyle(Color.fontDark)
                     Spacer()
                 }
-                    
+                
                 VStack {
                     HStack(spacing: 20){
                         if !viewModel.notRecommendedPotatoes.isEmpty {
@@ -75,7 +110,7 @@ struct DetailView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .padding(.bottom, 8)
-
+                
                 HStack{
                     Text("Handling Tips")
                         .font(.subtitle)
@@ -107,7 +142,7 @@ struct DetailView: View {
                     .padding(12)
                 }
                 .frame(height: 130)
-
+                
                 // great job! thingy
                 ZStack {
                     RoundedRectangle(cornerRadius: 14)
@@ -123,7 +158,7 @@ struct DetailView: View {
                             .resizable()
                             .padding(10)
                             .frame(width: 70, height:70)
-                        Text("Great job! You're taking good care of your potato!")
+                        Text(viewModel.overallCondition.courageMessage)
                             .font(.body)
                             .foregroundStyle(Color.fontDark)
                         Spacer()
@@ -133,6 +168,8 @@ struct DetailView: View {
             .padding(20)
         }
     }
+    
+    
 }
 
 #Preview {

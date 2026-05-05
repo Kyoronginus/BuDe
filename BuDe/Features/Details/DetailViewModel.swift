@@ -37,6 +37,13 @@ enum PotatoCondition {
         case .notRecommended: return Image("potato-image-notRecommended")
         }
     }
+    
+    var courageMessage: String {
+        switch self {
+        case .safeToEat: return "Great job! You're taking good care of your potato!"
+        case .notRecommended: return "Uh-oh! Some parts of your potato are damaged."
+        }
+    }
 }
 
 @Observable
@@ -45,12 +52,18 @@ class DetailViewModel {
     var isRecommended: Bool
     var pixelBuffer: CVPixelBuffer?
     var processedImage: Image?
+    var boundingBoxes: [VNRecognizedObjectObservation]
     
-    
-    init(detectedPotatoes: [Potato], isRecommended: Bool, pixelBuffer: CVPixelBuffer? = nil) {
+    init(
+        detectedPotatoes: [Potato],
+        isRecommended: Bool,
+        pixelBuffer: CVPixelBuffer? = nil,
+        boundingBoxes: [VNRecognizedObjectObservation] = []
+    ) {
         self.detectedPotatoes = detectedPotatoes
         self.isRecommended = isRecommended
         self.pixelBuffer = pixelBuffer
+        self.boundingBoxes = boundingBoxes
         
         generateMaskImage()
     }
@@ -88,7 +101,7 @@ class DetailViewModel {
             let maskedBuffer = try result.generateMaskedImage(
                 ofInstances: result.allInstances,
                 from: handler,
-                croppedToInstancesExtent: true
+                croppedToInstancesExtent: false
             )
             return maskedBuffer
         } catch {
@@ -105,4 +118,16 @@ class DetailViewModel {
             self.processedImage = Image(uiImage: UIImage(cgImage: cgImage, scale: 1.0, orientation: .right))
         }
     }
+    
+    func switchCondition(isGreen: Bool) {
+        // Ambil semua jenis potato dari bounding boxes yang ada di layar
+        let detectedNames = boundingBoxes.compactMap { $0.labels.first?.identifier }
+        
+        // ngefilter detectedNames
+        let filteredPotatoes = Potato.data.filter { detectedNames.contains($0.name) && $0.isRecommended == isGreen }
+
+        self.isRecommended = isGreen
+        self.detectedPotatoes = filteredPotatoes
+    }
+
 }

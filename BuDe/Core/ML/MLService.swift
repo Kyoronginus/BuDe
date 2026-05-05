@@ -5,9 +5,7 @@
 //  Created by Tohru Djunaedi Sato on 01/05/26.
 //
 
-import CoreML
 import Vision
-import CoreVideo
 
 class MLService {
     

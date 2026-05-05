@@ -27,10 +27,10 @@ import Vision
             
             self.mlModel.predict(pixelBuffer: pixelBuffer) { observations in
                 DispatchQueue.main.async {
-                    let filteredObservations = observations.filter { $0.confidence > 0.65 }
+                    let filteredObservations = observations.filter { $0.confidence > 0.55 }
                     self.detectedBoxes = filteredObservations
                     
-                    let detectedNames = observations.compactMap {
+                    let detectedNames = filteredObservations.compactMap {
                         $0.labels.first?.identifier
                     }
                     

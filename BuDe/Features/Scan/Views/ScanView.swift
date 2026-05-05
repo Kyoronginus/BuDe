@@ -66,6 +66,7 @@ struct ScanView: View {
                             ConditionCard(
                                 title: "Likely Recommended",
                                 condition: safePotatoes,
+                                boundingBoxes: viewModel.detectedBoxes,
                                 fetchPixelBuffer: { viewModel.lastPixelBuffer }
                             ) { isShowing in
                                 if isShowing {
@@ -82,6 +83,7 @@ struct ScanView: View {
                             ConditionCard(
                                 title: "Not Recommended",
                                 condition: riskyPotatoes,
+                                boundingBoxes: viewModel.detectedBoxes,
                                 fetchPixelBuffer: { viewModel.lastPixelBuffer }
                             ) { isShowing in
                                     if isShowing {

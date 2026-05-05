@@ -74,7 +74,8 @@ struct ConditionCard: View {
             DetailView(viewModel: DetailViewModel(
                 detectedPotatoes: condition,
                 isRecommended: self.isRecommended,
-                pixelBuffer: fetchPixelBuffer?()
+                pixelBuffer: fetchPixelBuffer?(),
+                boundingBoxes: boundingBoxes
             ))
         }
     }
