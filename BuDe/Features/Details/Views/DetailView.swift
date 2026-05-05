@@ -166,6 +166,7 @@ struct DetailView: View {
                 }.padding(.top, 16)
             }
             .padding(20)
+            .presentationDragIndicator(.visible)
         }
     }
     
