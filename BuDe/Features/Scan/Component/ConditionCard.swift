@@ -52,7 +52,7 @@ struct ConditionCard: View {
                     .padding(8)
                     .background(.white.opacity(0.9))
                     .cornerRadius(20)
-            }
+            }.padding(.top, 4)
         }
         .padding()
         .background(isRecommended ? Color.glassGreen : Color.glassRed)
