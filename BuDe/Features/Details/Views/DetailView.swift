@@ -8,10 +8,6 @@ import SwiftUI
 import Vision
 
 struct DetailView: View {
-    //    let potato: Potato
-    //    let potatoCondition: PotatoCondition
-    //    let handlingTips: PotatoHandlingModel
-    
     var viewModel: DetailViewModel
     
     
