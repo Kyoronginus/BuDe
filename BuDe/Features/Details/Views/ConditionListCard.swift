@@ -86,6 +86,5 @@ struct conditionListCard: View {
                 isRecommended: false
             )
         ])
-//        conditionListCard(type: .good, potatoes: <#[Potato]#>)
     }
 }
