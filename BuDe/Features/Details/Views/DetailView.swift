@@ -98,6 +98,7 @@ struct DetailView: View {
                                     .frame(width: 70, height: 70)
                                 Text(viewModel.handlingTips.texts[index])
                                     .font(.handlingText)
+                                    .foregroundStyle(Color.fontDark)
                                     .multilineTextAlignment(.center)
                             }
                             .frame(maxWidth: .infinity)
