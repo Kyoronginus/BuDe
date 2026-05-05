@@ -75,17 +75,17 @@ struct conditionListCard: View {
                 name: "Green Potato",
                 action: "Not recommended",
                 tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
-                handle: PotatoHandlingTips.greenSkin.handle,
+                handle: PotatoHandlingTips.greenPotato.handle,
                 isRecommended: false
             ),
             Potato(
                 name: "Rot",
                 action: "Not recommended",
                 tips: "Soft or rotten potatoes show signs of decay and should be discarded",
-                handle: PotatoHandlingTips.rotten.handle,
+                handle: PotatoHandlingTips.rot.handle,
                 isRecommended: false
             )
         ])
-//        conditionListCard(type: .good)
+        conditionListCard(type: .good, potatoes: <#[Potato]#>)
     }
 }

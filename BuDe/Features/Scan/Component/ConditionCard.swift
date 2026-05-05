@@ -58,9 +58,9 @@ struct ConditionCard: View {
         .background(isRecommended ? Color.glassGreen : Color.glassRed)
         .background(.ultraThinMaterial)
         .cornerRadius(16)
-//        .sheet(isPresented: $isDetailShown) {
-//            DetailView(viewModel: DetailViewModel(detectedPotatoes: condition, isRecommended: self.isRecommended))
-//        }
+        .sheet(isPresented: $isDetailShown) {
+            DetailView(viewModel: DetailViewModel(detectedPotatoes: condition, isRecommended: self.isRecommended))
+        }
     }
 }
 

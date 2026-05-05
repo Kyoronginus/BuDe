@@ -73,8 +73,8 @@ struct ScanView: View {
                 }
             }
                 
-                HStack(spacing: 12) {
-                    Image(systemName: "thinkPotato")
+            HStack(alignment: .bottom) {
+                    Image("thinkPotato")
                         .resizable()
                         .frame(width: 30, height: 30)
                         .foregroundColor(.yellow)
