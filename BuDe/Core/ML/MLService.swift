@@ -21,7 +21,6 @@ class MLService {
             let vision_model = try VNCoreMLModel(for: core_model)
             let request = VNCoreMLRequest(model: vision_model)
             request.imageCropAndScaleOption = .scaleFill
-            request.regionOfInterest = CGRect(x: 0.18, y: 0.35, width: 0.64, height: 0.30)
             self.detectionRequest = request
             
         } catch {

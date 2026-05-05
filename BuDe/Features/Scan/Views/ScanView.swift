@@ -47,13 +47,16 @@ struct ScanView: View {
                     .animation(.easeInOut(duration: 0.2), value: centerX)
                 }
             }
-            .mask(VStack{
-                Spacer()
-                Rectangle().frame(width: 320, height: 320)
-                Spacer().frame(height: 170)
-            })
             .ignoresSafeArea()
             
+            VStack {
+                Spacer()
+                ScannerCorners()
+                    .stroke(Color.white, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .frame(width: 320, height: 320)
+                Spacer().frame(height: 170)
+            }
+            .allowsHitTesting(false)
             VStack {
                 if !viewModel.results.isEmpty {
                     HStack(alignment: .top, spacing: 12) {
