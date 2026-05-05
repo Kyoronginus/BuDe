@@ -67,6 +67,7 @@ struct DetailView: View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity)
 
                 
                 // Handling tips

@@ -63,12 +63,25 @@ struct ScanView: View {
                         
                         let safePotatoes = viewModel.results.filter { $0.action == "Likely Recommended" }
                         if !safePotatoes.isEmpty {
-                            ConditionCard(title: "Likely Recommended", condition: safePotatoes)
+                            ConditionCard(title: "Likely Recommended", condition: safePotatoes) { isShowing in
+                                if isShowing {
+                                    viewModel.cameraManager.stop()
+                                } else {
+                                    viewModel.cameraManager.start()
+                                }
+                                
+                            }
                         }
                         
                         let riskyPotatoes = viewModel.results.filter { $0.action == "Not recommended" }
                         if !riskyPotatoes.isEmpty {
-                            ConditionCard(title: "Not Recommended", condition: riskyPotatoes)
+                            ConditionCard(title: "Not Recommended", condition: riskyPotatoes) { isShowing in
+                                    if isShowing {
+                                        viewModel.cameraManager.stop()
+                                    } else {
+                                        viewModel.cameraManager.start()
+                                    }
+                            }
                         }
                     }
                     .padding(.top, 40)
