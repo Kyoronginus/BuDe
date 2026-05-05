@@ -17,23 +17,22 @@ struct ConditionCard: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 4) {
             Image(isRecommended ? "happyPotato" : "sadPotato")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50, height: 50, alignment: .leading)
             
             Text(title)
-                .font(.title)
+                .font(.subtitle)
                 .foregroundStyle(isRecommended ? Color.fontGreen : Color.fontRed)
             
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 2) {
                 ForEach(condition) { potato in
                     HStack {
                         Circle()
                             .fill(potato.isRecommended ? Color.fontGreen : Color.fontRed)
-                            .frame(width: 10, height: 10)
-                            .padding(4)
+                            .frame(width: 8, height: 8)
                         
                         Text(potato.name)
                             .font(.caption)
