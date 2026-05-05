@@ -87,6 +87,8 @@ struct DetailView: View {
                         ForEach(0..<viewModel.handlingTips.texts.count, id: \.self) { index in
                             VStack(){
                                 viewModel.handlingTips.images[index]
+                                    .resizable()
+                                    .frame(width: 70, height: 70)
                                 Text(viewModel.handlingTips.texts[index])
                                     .font(.custom("Poppins-SemiBold", size: 9))
                             }
@@ -108,8 +110,10 @@ struct DetailView: View {
                         )
                         .frame(height: 70)
                     HStack{
-                        Image("maskot")
+                        Image("happyPotato")
+                            .resizable()
                             .padding(10)
+                            .frame(width: 70, height:70)
                         Text("Great job! You're taking good care of your potato!")
                             .font(.custom("Poppins-Regular", size: 14))
                             .foregroundStyle(Color(hex: "444444"))
@@ -122,7 +126,15 @@ struct DetailView: View {
     }
 }
 
-//#Preview {
-//    DetailView()
-//}
+#Preview {
+    DetailView(viewModel: DetailViewModel(detectedPotatoes: [
+        Potato(
+            name: "Healthy",
+            action: "Likely Recommended",
+            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition",
+            handle: PotatoHandlingTips.healthy.handle,
+            isRecommended: true
+        )
+    ], isRecommended: true))
+}
 
