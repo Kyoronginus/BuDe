@@ -47,6 +47,11 @@ struct ScanView: View {
                     .animation(.easeInOut(duration: 0.2), value: centerX)
                 }
             }
+            .mask(VStack{
+                Spacer()
+                Rectangle().frame(width: 320, height: 320)
+                Spacer().frame(height: 170)
+            })
             .ignoresSafeArea()
             
             VStack {
@@ -90,6 +95,15 @@ struct ScanView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 30)
             }
+            
+            VStack{
+                Spacer()
+                ScannerCorners()
+                    .stroke(Color.white, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    .frame(width: 320, height: 320)
+                Spacer().frame(height: 170)
+            }
+            .allowsHitTesting(false)
         }.onAppear {
             viewModel.cameraManager.start()
         }
@@ -107,6 +121,44 @@ struct ScanView: View {
                 }
             )
         }
+    }
+}
+
+struct ScannerCorners: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let length: CGFloat = 40
+        let radius: CGFloat = 20
+        
+        // top left
+        path.move(to: CGPoint(x: rect.minX, y: rect.minY + length))
+        path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.minY),
+                    tangent2End: CGPoint(x: rect.minX + length, y: rect.minY),
+                    radius: radius)
+        path.addLine(to: CGPoint(x: rect.minX + length, y: rect.minY))
+        
+        // top right
+        path.move(to: CGPoint(x: rect.maxX - length, y: rect.minY))
+        path.addArc(tangent1End: CGPoint(x: rect.maxX, y: rect.minY),
+                    tangent2End: CGPoint(x: rect.maxX, y: rect.minY + length),
+                    radius: radius)
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.minY + length))
+        
+        // bottom right
+        path.move(to: CGPoint(x: rect.maxX, y: rect.maxY - length))
+        path.addArc(tangent1End: CGPoint(x: rect.maxX, y: rect.maxY),
+                    tangent2End: CGPoint(x: rect.maxX - length, y: rect.maxY),
+                    radius: radius)
+        path.addLine(to: CGPoint(x: rect.maxX - length, y: rect.maxY))
+        
+        // bottom left
+        path.move(to: CGPoint(x: rect.minX + length, y: rect.maxY))
+        path.addArc(tangent1End: CGPoint(x: rect.minX, y: rect.maxY),
+                    tangent2End: CGPoint(x: rect.minX, y: rect.maxY - length),
+                    radius: radius)
+        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY - length))
+        
+        return path
     }
 }
 

@@ -61,31 +61,31 @@ struct conditionListCard: View {
     }
 }
 
-#Preview {
-    VStack {
-        conditionListCard(type: .issue, potatoes: [
-            Potato(
-                name: "Sprouted",
-                action: "Not recommended",
-                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
-                handle: PotatoHandlingTips.sprouted.handle,
-                isRecommended: false
-            ),
-            Potato(
-                name: "Green Potato",
-                action: "Not recommended",
-                tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
-                handle: PotatoHandlingTips.greenPotato.handle,
-                isRecommended: false
-            ),
-            Potato(
-                name: "Rot",
-                action: "Not recommended",
-                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
-                handle: PotatoHandlingTips.rot.handle,
-                isRecommended: false
-            )
-        ])
-//        conditionListCard(type: .good, potatoes: <#[Potato]#>)
-    }
-}
+//#Preview {
+//    VStack {
+//        conditionListCard(type: .issue, potatoes: [
+//            Potato(
+//                name: "Sprouted",
+//                action: "Not recommended",
+//                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
+//                handle: PotatoHandlingTips.sprouted.handle,
+//                isRecommended: false
+//            ),
+//            Potato(
+//                name: "Green Potato",
+//                action: "Not recommended",
+//                tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
+//                handle: PotatoHandlingTips.greenPotato.handle,
+//                isRecommended: false
+//            ),
+//            Potato(
+//                name: "Rot",
+//                action: "Not recommended",
+//                tips: "Soft or rotten potatoes show signs of decay and should be discarded",
+//                handle: PotatoHandlingTips.rot.handle,
+//                isRecommended: false
+//            )
+//        ])
+////        conditionListCard(type: .good, potatoes: <#[Potato]#>)
+//    }
+//}
