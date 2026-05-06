@@ -53,6 +53,7 @@ struct conditionListCard: View {
                     Text(potato.tips)
                         .font(.body)
                         .foregroundStyle(Color.fontDark)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
             }
         }

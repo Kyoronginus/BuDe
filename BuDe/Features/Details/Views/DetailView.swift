@@ -44,7 +44,7 @@ struct DetailView: View {
                     processedImage
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 150)
+                        .frame(minHeight: 0, maxHeight: .infinity)
                         .overlay(
                             // gambar bounding box
                             GeometryReader { geometry in
@@ -78,12 +78,12 @@ struct DetailView: View {
                                 }
                             }
                         )
-                        .scaleEffect(1.2)
+//                        .scaleEffect(1.2)
                 } else {
                     viewModel.overallCondition().resultImage
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 150)
+                        .frame(minHeight: 0, maxHeight: .infinity)
                 }
                 
                 // condition list row
@@ -126,6 +126,7 @@ struct DetailView: View {
                             VStack(){
                                 viewModel.handlingTips().images[index]
                                     .resizable()
+                                    .scaledToFit()
                                     .frame(width: 70, height: 70)
                                 Text(viewModel.handlingTips().texts[index])
                                     .font(.handlingText)
@@ -138,28 +139,6 @@ struct DetailView: View {
                     .padding(12)
                 }
                 .frame(height: 130)
-                
-                // great job! thingy
-                ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(Color.glassYellow)
-                        .opacity(1.0)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14)
-                                .strokeBorder(Color.yellowBackground, lineWidth: 2)
-                        )
-                        .frame(height: 70)
-                    HStack{
-                        viewModel.overallCondition().maskotImage
-                            .resizable()
-                            .padding(10)
-                            .frame(width: 70, height:70)
-                        Text(viewModel.overallCondition().courageMessage)
-                            .font(.body)
-                            .foregroundStyle(Color.fontDark)
-                        Spacer()
-                    }
-                }.padding(.top, 16)
             }
             .padding(20)
             .presentationDragIndicator(.visible)
