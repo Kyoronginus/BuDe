@@ -26,17 +26,17 @@ struct DetailView: View {
                 // recommended or not
                 ZStack(){
                     RoundedRectangle(cornerRadius: 100)
-                        .fill(viewModel.overallCondition.resultBoxColor)
+                        .fill(viewModel.overallCondition().resultBoxColor)
                         .overlay(
                             RoundedRectangle(cornerRadius: 100)
-                                .strokeBorder(viewModel.overallCondition.resultTextColor, lineWidth: 2)
+                                .strokeBorder(viewModel.overallCondition().resultTextColor, lineWidth: 2)
                             
                         )
                         .frame(height: 50)
                         .padding(.horizontal, 50)
-                    Text(viewModel.overallCondition.resultText)
+                    Text(viewModel.overallCondition().resultText)
                         .font(.custom("Poppins-Bold", size: 18))
-                        .foregroundStyle(viewModel.overallCondition.resultTextColor)
+                        .foregroundStyle(viewModel.overallCondition().resultTextColor)
                 }
                 
                 
@@ -80,7 +80,7 @@ struct DetailView: View {
                         )
                         .scaleEffect(1.2)
                 } else {
-                    viewModel.overallCondition.resultImage
+                    viewModel.overallCondition().resultImage
                         .resizable()
                         .scaledToFit()
                         .frame(height: 150)
@@ -96,11 +96,11 @@ struct DetailView: View {
                 
                 VStack {
                     HStack(spacing: 20){
-                        if !viewModel.notRecommendedPotatoes.isEmpty {
-                            conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes)
+                        if !viewModel.notRecommendedPotatoes().isEmpty {
+                            conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes())
                         }
-                        if !viewModel.recommendedPotatoes.isEmpty {
-                            conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes)
+                        if !viewModel.recommendedPotatoes().isEmpty {
+                            conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes())
                         }
                     }
                 }
@@ -122,12 +122,12 @@ struct DetailView: View {
                                 .strokeBorder(Color.borderWhite, lineWidth: 2)
                         )
                     HStack() {
-                        ForEach(0..<viewModel.handlingTips.texts.count, id: \.self) { index in
+                        ForEach(0..<viewModel.handlingTips().texts.count, id: \.self) { index in
                             VStack(){
-                                viewModel.handlingTips.images[index]
+                                viewModel.handlingTips().images[index]
                                     .resizable()
                                     .frame(width: 70, height: 70)
-                                Text(viewModel.handlingTips.texts[index])
+                                Text(viewModel.handlingTips().texts[index])
                                     .font(.handlingText)
                                     .foregroundStyle(Color.fontDark)
                                     .multilineTextAlignment(.center)
@@ -150,11 +150,11 @@ struct DetailView: View {
                         )
                         .frame(height: 70)
                     HStack{
-                        viewModel.overallCondition.maskotImage
+                        viewModel.overallCondition().maskotImage
                             .resizable()
                             .padding(10)
                             .frame(width: 70, height:70)
-                        Text(viewModel.overallCondition.courageMessage)
+                        Text(viewModel.overallCondition().courageMessage)
                             .font(.body)
                             .foregroundStyle(Color.fontDark)
                         Spacer()

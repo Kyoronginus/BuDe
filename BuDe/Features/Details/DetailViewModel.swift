@@ -76,19 +76,19 @@ class DetailViewModel {
         generateMaskImage()
     }
     
-    var recommendedPotatoes: [Potato] {
-        self.detectedPotatoes.filter({ $0.isRecommended })
+    func recommendedPotatoes() -> ([Potato]) {
+        return self.detectedPotatoes.filter( {$0.isRecommended})
     }
     
-    var notRecommendedPotatoes: [Potato] {
-        self.detectedPotatoes.filter({ !$0.isRecommended })
+    func notRecommendedPotatoes() -> ([Potato]) {
+        return self.detectedPotatoes.filter( {!$0.isRecommended})
     }
     
-    var overallCondition: PotatoCondition {
+    func overallCondition() -> PotatoCondition {
         return isRecommended ? .safeToEat : .notRecommended
     }
     
-    var handlingTips: PotatoHandlingModel {
+    func handlingTips() -> PotatoHandlingModel {
         return detectedPotatoes.first!.handle
     }
     
@@ -128,10 +128,8 @@ class DetailViewModel {
     }
     
     func switchCondition(isGreen: Bool) {
-        // Ambil semua jenis potato dari bounding boxes yang ada di layar
         let detectedNames = boundingBoxes.compactMap { $0.labels.first?.identifier }
         
-        // ngefilter detectedNames
         let filteredPotatoes = Potato.data.filter { detectedNames.contains($0.name) && $0.isRecommended == isGreen }
 
         self.isRecommended = isGreen
