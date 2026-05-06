@@ -132,7 +132,6 @@ class DetailViewModel {
         do {
             try handler.perform([(request)])
             guard let result = request.results?.first else {
-                // no foreground
                 return nil
             }
             let maskedBuffer = try result.generateMaskedImage(
@@ -142,7 +141,6 @@ class DetailViewModel {
             )
             return maskedBuffer
         } catch {
-            // gagal membuat mask
             return nil
         }
     }
