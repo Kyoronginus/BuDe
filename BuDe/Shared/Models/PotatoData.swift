@@ -8,28 +8,31 @@
 import SwiftUI
 
 enum PotatoHandlingTips {
-    case healthy
-    case blackScurf
-    case commonScab
-    case sprouted
-    case greenPotato
-    case rot
+    case allRecommended
+    case allNotRecommended
+    case mixed
     
     var handle: PotatoHandlingModel {
         switch self {
-        case .healthy, .commonScab, .blackScurf:
+        case .allRecommended:
             return PotatoHandlingModel(
                 texts: ["Avoid direct sun", "Keep cool & dry", "Use breatheable storage"],
-                images: [Image("avoid-direct-sun"), Image("keep-cool-&-dry"), Image("use-breatheable-storage")]
+                imageNames: ["avoid-direct-sun", "keep-cool-&-dry", "use-breatheable-storage"]
             )
-        case .sprouted, .greenPotato, .rot:
+        case .allNotRecommended:
+
+            return PotatoHandlingModel(
+                texts: ["Throw away entirely","Separate from fresh potatoes"],
+                imageNames: ["throw-away-entirely", "separate-from-fresh-potatoes"]
+                )
+        case .mixed:
             return PotatoHandlingModel(
                 texts: ["Cut damaged parts", "Use good parts", "Finish immediately"],
-                images: [Image("cut-damaged-parts"), Image("use-good-parts"), Image("finish-immediately")]
+                imageNames: ["cut-damaged-parts", "use-good-parts", "finish-immediately"]
             )
         }
+
     }
-    
 }
 
 extension Potato {
@@ -38,42 +41,42 @@ extension Potato {
             name: "Healthy",
             action: "Likely Recommended",
             tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition.",
-            handle: PotatoHandlingTips.healthy.handle,
+            handle: PotatoHandlingTips.allRecommended.handle,
             isRecommended: true
         ),
         Potato(
             name: "Black Scurf",
             action: "Likely Recommended",
             tips: "Dark patches on the skin only. Safe to eat when peeled.",
-            handle: PotatoHandlingTips.blackScurf.handle,
+            handle: PotatoHandlingTips.allRecommended.handle,
             isRecommended: true
         ),
         Potato(
             name: "Common Scab",
             action: "Likely Recommended",
             tips: "Rough, scaly skin. Still safe to eat.",
-            handle: PotatoHandlingTips.commonScab.handle,
+            handle: PotatoHandlingTips.allRecommended.handle,
             isRecommended: true
         ),
         Potato(
             name: "Sprouted",
             action: "Not recommended",
             tips: "Sprouted potatoes are dangerous due to high solanine levels.",
-            handle: PotatoHandlingTips.sprouted.handle,
+            handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
         ),
         Potato(
             name: "Green Patches",
             action: "Not recommended",
             tips: "Green areas contain solanine. May be harmful if consume in excess.",
-            handle: PotatoHandlingTips.greenPotato.handle,
+            handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
         ),
         Potato(
             name: "Soft Rotten",
             action: "Not recommended",
             tips: "Soft or rotten potatoes show signs of decay and should be discarded.",
-            handle: PotatoHandlingTips.rot.handle,
+            handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
         )]
 }

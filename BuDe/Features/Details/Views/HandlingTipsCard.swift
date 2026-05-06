@@ -49,7 +49,7 @@ struct HandlingTipsCard: View {
                 .frame(width: 56, height: 56)
             
             Text(item.label)
-                .font(.conditionCard)
+                .font(.custom("DMSans-9ptRegular_SemiBold", size: 16))
                 .foregroundStyle(Color.fontDark)
             
             Spacer()
@@ -72,4 +72,17 @@ struct HandlingGroup: View {
             }
         }
     }
+}
+
+#Preview{
+    ZStack {
+        Color.backgroundColor
+            .ignoresSafeArea()
+        HandlingGroup(card: HandlingCard(items: [
+            HandlingTips(imageName: "icon-sun", label: "Sun Protection", isRecommended: true),
+            HandlingTips(imageName: "icon-wind", label: "Wind Protection", isRecommended: false),
+            HandlingTips(imageName: "icon-rain", label: "Rain Protection", isRecommended: true),
+        ]))
+    }
+
 }

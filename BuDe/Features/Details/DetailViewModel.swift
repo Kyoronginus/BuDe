@@ -88,8 +88,37 @@ class DetailViewModel {
         return isRecommended ? .safeToEat : .notRecommended
     }
     
-    func handlingTips() -> PotatoHandlingModel {
-        return detectedPotatoes.first!.handle
+    func getHandlingCard() -> HandlingCard {
+        let detectedNames = boundingBoxes.compactMap { $0.labels.first?.identifier }
+        let hasRecommendedPotato = detectedNames.contains { name in
+            ["Healthy", "Black Scurf", "Common Scab"].contains(name)
+        }
+        let hasNotRecommendedPotato = detectedNames.contains { name in
+            ["Sprouted", "Green Patches", "Soft Rotten"].contains(name)
+        }
+        
+        let tipType: PotatoHandlingTips
+        let isRec: Bool
+        
+        if hasRecommendedPotato && hasNotRecommendedPotato {
+            tipType = .mixed
+            isRec = false
+        } else if hasNotRecommendedPotato {
+            tipType = .allNotRecommended
+            isRec = false
+        } else {
+            tipType = .allRecommended
+            isRec = true
+        }
+        
+        let model = tipType.handle
+        var items: [HandlingTips] = []
+        
+        for i in 0..<model.texts.count {
+            items.append(HandlingTips(imageName: model.imageNames[i], label: model.texts[i], isRecommended: isRec))
+        }
+        
+        return HandlingCard(items: items)
     }
     
     func generateMask() -> CVPixelBuffer? {

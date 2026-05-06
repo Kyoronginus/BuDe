@@ -114,31 +114,7 @@ struct DetailView: View {
                     Spacer()
                 }
                 
-                ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(Color.white)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 14)
-                                .strokeBorder(Color.borderWhite, lineWidth: 2)
-                        )
-                    HStack() {
-                        ForEach(0..<viewModel.handlingTips().texts.count, id: \.self) { index in
-                            VStack(){
-                                viewModel.handlingTips().images[index]
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 70, height: 70)
-                                Text(viewModel.handlingTips().texts[index])
-                                    .font(.readMoreDetailText)
-                                    .foregroundStyle(Color.fontDark)
-                                    .multilineTextAlignment(.center)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
-                    }
-                    .padding(12)
-                }
-                .frame(height: 130)
+                HandlingGroup(card: viewModel.getHandlingCard())
             }
             .padding(20)
             .presentationDragIndicator(.visible)
@@ -154,7 +130,8 @@ struct DetailView: View {
             name: "Healthy",
             action: "Likely Recommended",
             tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition",
-            handle: PotatoHandlingTips.healthy.handle,
+            handle: PotatoHandlingTips.allRecommended
+                .handle,
             isRecommended: true
         ),
     ], isRecommended: true))

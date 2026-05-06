@@ -18,5 +18,5 @@ struct Potato: Identifiable {
 
 struct PotatoHandlingModel {
     let texts: [String]
-    let images: [Image]
+    let imageNames: [String]
 }

@@ -75,52 +75,7 @@ struct conditionListCard: View {
         Color.backgroundColor
             .ignoresSafeArea()
         VStack {
-            conditionListCard(type: .issue, potatoes: [
-                Potato(
-                    name: "Sprouted",
-                    action: "Not recommended",
-                    tips: "Soft or rotten potatoes show signs of decay and should be discarded",
-                    handle: PotatoHandlingTips.sprouted.handle,
-                    isRecommended: false
-                ),
-                Potato(
-                    name: "Green Potato",
-                    action: "Not recommended",
-                    tips: "Green areas on potatoes indicate the presence of solanine, which can be harmful if consumed in excess",
-                    handle: PotatoHandlingTips.greenPotato.handle,
-                    isRecommended: false
-                ),
-                Potato(
-                    name: "Rot",
-                    action: "Not recommended",
-                    tips: "Soft or rotten potatoes show signs of decay and should be discarded",
-                    handle: PotatoHandlingTips.rot.handle,
-                    isRecommended: false
-                )
-            ])
-            conditionListCard(type: .good, potatoes: [
-                Potato(
-                    name: "Healthy",
-                    action: "Likely Recommended",
-                    tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition.",
-                    handle: PotatoHandlingTips.healthy.handle,
-                    isRecommended: true
-                ),
-                Potato(
-                    name: "Black Scurf",
-                    action: "Likely Recommended",
-                    tips: "Dark patches on the skin only. Safe to eat when peeled.",
-                    handle: PotatoHandlingTips.blackScurf.handle,
-                    isRecommended: true
-                ),
-                Potato(
-                    name: "Common Scab",
-                    action: "Likely Recommended",
-                    tips: "Rough, scaly skin. Still safe to eat.",
-                    handle: PotatoHandlingTips.commonScab.handle,
-                    isRecommended: true
-                )
-            ])
+            conditionListCard(type: .issue, potatoes: Potato.data)
         }
     }
 
