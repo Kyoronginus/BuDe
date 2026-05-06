@@ -95,7 +95,7 @@ struct DetailView: View {
                 }
                 
                 VStack {
-                    HStack(spacing: 20){
+                    VStack(spacing: 20){
                         if !viewModel.notRecommendedPotatoes().isEmpty {
                             conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes())
                         }
@@ -156,7 +156,7 @@ struct DetailView: View {
             tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition",
             handle: PotatoHandlingTips.healthy.handle,
             isRecommended: true
-        )
+        ),
     ], isRecommended: true))
 }
 
