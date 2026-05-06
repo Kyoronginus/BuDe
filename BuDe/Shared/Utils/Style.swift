@@ -26,6 +26,6 @@ extension Font {
     static let title: Font = .custom("Poppins-Bold", size: 20)
     static let subtitle: Font = .custom("Poppins-Bold", size: 16)
     static let cardText: Font = .custom("DMSans-SemiBold", size: 17)
-    static let conditionCard: Font = .custom("DMSans-VariableFont", size: 13)
-    static let readMoreDetailText: Font = .custom("DMSans-VariableFont", size: 11)
+    static let conditionCard: Font = .custom("DMSans-Regular", size: 13)
+    static let readMoreDetailText: Font = .custom("DMSans-Regular", size: 11)
 }

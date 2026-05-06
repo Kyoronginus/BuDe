@@ -65,14 +65,14 @@ extension Potato {
             isRecommended: false
         ),
         Potato(
-            name: "Green Patches",
+            name: "Green Potato",
             action: "Not Recommended",
             tips: "Green areas contain solanine. May be harmful if consume in excess.",
             handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
         ),
         Potato(
-            name: "Soft Rotten",
+            name: "Rot",
             action: "Not Recommended",
             tips: "Soft or rotten potatoes show signs of decay and should be discarded.",
             handle: PotatoHandlingTips.allNotRecommended.handle,

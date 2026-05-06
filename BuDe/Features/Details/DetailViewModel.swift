@@ -94,7 +94,7 @@ class DetailViewModel {
             ["Healthy", "Black Scurf", "Common Scab"].contains(name)
         }
         let hasNotRecommendedPotato = detectedNames.contains { name in
-            ["Sprouted", "Green Patches", "Soft Rotten"].contains(name)
+            ["Sprouted", "Green Potato", "Rot"].contains(name)
         }
         
         let tipType: PotatoHandlingTips
