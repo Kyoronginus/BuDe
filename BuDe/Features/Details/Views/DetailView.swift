@@ -44,7 +44,7 @@ struct DetailView: View {
                     processedImage
                         .resizable()
                         .scaledToFit()
-                        .frame(minHeight: 0, maxHeight: .infinity)
+                        .frame(maxHeight: .infinity)
                         .overlay(
                             // gambar bounding box
                             GeometryReader { geometry in
@@ -83,7 +83,7 @@ struct DetailView: View {
                     viewModel.overallCondition().resultImage
                         .resizable()
                         .scaledToFit()
-                        .frame(minHeight: 0, maxHeight: .infinity)
+                        .frame(maxHeight: .infinity)
                 }
                 
                 // condition list row
@@ -129,7 +129,7 @@ struct DetailView: View {
                                     .scaledToFit()
                                     .frame(width: 70, height: 70)
                                 Text(viewModel.handlingTips().texts[index])
-                                    .font(.handlingText)
+                                    .font(.readMoreDetailText)
                                     .foregroundStyle(Color.fontDark)
                                     .multilineTextAlignment(.center)
                             }

@@ -24,9 +24,8 @@ extension Color {
 
 extension Font {
     static let title: Font = .custom("Poppins-Bold", size: 20)
-    static let subtitle: Font = .custom("Poppins-SemiBold", size: 16)
-    static let body: Font = .custom("Poppins-Regular", size: 14)
-    static let caption: Font = .custom("Poppins-Semibold", size: 12)
-    static let boundingBoxText: Font = .custom("Poppins-Bold", size: 10)
-    static let handlingText: Font = .custom("Poppins-SemiBold", size: 10)
+    static let subtitle: Font = .custom("Poppins-Bold", size: 16)
+    static let cardText: Font = .custom("DMSans-VariableFont", size: 17)
+    static let conditionCard: Font = .custom("DMSans-VariableFont", size: 13)
+    static let readMoreDetailText: Font = .custom("DMSans-VariableFont", size: 11)
 }

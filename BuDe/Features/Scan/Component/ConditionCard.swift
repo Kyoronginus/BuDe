@@ -43,7 +43,7 @@ struct ConditionCard: View {
                             .frame(width: 8, height: 8)
                         
                         Text(potato.name)
-                            .font(.caption)
+                            .font(.conditionCard)
                             .foregroundStyle(Color.fontDark)
                     }
                 }
@@ -54,7 +54,7 @@ struct ConditionCard: View {
                 onToggleSheet(isDetailShown)
             }) {
                 Text("Read More Details")
-                    .font(.caption)
+                    .font(.readMoreDetailText)
                     .foregroundStyle(Color.fontDark)
                     .frame(alignment: .trailing)
                     .padding(8)

@@ -32,7 +32,7 @@ struct ScanView: View {
                         
                         VStack {
                             Text(label)
-                                .font(Font.boundingBoxText)
+                                .font(.conditionCard)
                                 .bold()
                                 .foregroundColor(.white)
                                 .padding(4)

@@ -47,7 +47,7 @@ struct conditionListCard: View {
                             .frame(width: 8, height: 8)
                         
                         Text("\(potato.name)")
-                            .font(.subtitle)
+                            .font(.cardText)
                             .foregroundStyle(type.textColor)
                     }
                     Text(potato.tips)
