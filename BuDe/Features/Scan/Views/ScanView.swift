@@ -79,7 +79,7 @@ struct ScanView: View {
                             }
                         }
                         
-                        let riskyPotatoes = viewModel.results.filter { $0.action == "Not recommended" }
+                        let riskyPotatoes = viewModel.results.filter { $0.action == "Not Recommended" }
                         if !riskyPotatoes.isEmpty {
                             ConditionCard(
                                 title: "Not Recommended",
