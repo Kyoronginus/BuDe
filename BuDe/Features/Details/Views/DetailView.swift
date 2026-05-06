@@ -9,7 +9,8 @@ import Vision
 
 struct DetailView: View {
     var viewModel: DetailViewModel
-    
+    @State private var selected = "Condition"
+    let options = ["Condition", "Handling Tips"]
     
     var body: some View {
         ZStack{
@@ -44,7 +45,7 @@ struct DetailView: View {
                     processedImage
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: .infinity)
+                        .frame(height: 200)
                         .overlay(
                             // gambar bounding box
                             GeometryReader { geometry in
@@ -78,43 +79,65 @@ struct DetailView: View {
                                 }
                             }
                         )
-//                        .scaleEffect(1.2)
+                    //  .scaleEffect(1.2)
                 } else {
                     viewModel.overallCondition().resultImage
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: .infinity)
+                        .frame(height: 200)
                 }
                 
-                // condition list row
-                HStack{
-                    Text("Condition")
-                        .font(.subtitle)
-                        .foregroundStyle(Color.fontDark)
-                    Spacer()
-                }
-                
-                VStack {
-                    VStack(spacing: 20){
-                        if !viewModel.notRecommendedPotatoes().isEmpty {
-                            conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes())
-                        }
-                        if !viewModel.recommendedPotatoes().isEmpty {
-                            conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes())
-                        }
+            
+                Picker("Select a type", selection: $selected) {
+                    ForEach(options, id: \.self) { option in
+                        Text(option)
+                            .tag(option)
                     }
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.bottom, 8)
+                .pickerStyle(.segmented)
+                .zIndex(1)
+                .padding(.bottom, 10)
                 
-                HStack{
-                    Text("Handling Tips")
-                        .font(.subtitle)
-                        .foregroundStyle(Color.fontDark)
-                    Spacer()
+                if selected == "Condition"{
+                    // condition list row
+                    VStack{
+                        HStack{
+                            Text("Condition")
+                                .font(.subtitle)
+                                .foregroundStyle(Color.fontDark)
+                            Spacer()
+                        }
+                        
+                        VStack {
+                            VStack(spacing: 8){
+                                if !viewModel.notRecommendedPotatoes().isEmpty {
+                                    conditionListCard(type: .issue, potatoes: viewModel.notRecommendedPotatoes())
+                                }
+                                if !viewModel.recommendedPotatoes().isEmpty {
+                                    conditionListCard(type: .good, potatoes: viewModel.recommendedPotatoes())
+                                }
+                            }
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.bottom, 8)
+                    }
                 }
                 
-                HandlingGroup(card: viewModel.getHandlingCard())
+                else if selected == "Handling Tips" {
+                    // handling tips row
+                    
+                    VStack{
+                        HStack{
+                            Text("Handling Tips")
+                                .font(.subtitle)
+                                .foregroundStyle(Color.fontDark)
+                            Spacer()
+                        }
+                        
+                        HandlingGroup(card: viewModel.getHandlingCard())
+                    }
+                    
+                }
             }
             .padding(20)
             .presentationDragIndicator(.visible)
@@ -129,8 +152,24 @@ struct DetailView: View {
         Potato(
             name: "Healthy",
             action: "Likely Recommended",
-            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in fresh condition",
-            handle: PotatoHandlingTips.allRecommended
+            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
+            handle: PotatoHandlingTips.allNotRecommended
+                .handle,
+            isRecommended: true
+        ),
+        Potato(
+            name: "Healthy",
+            action: "Likely Recommended",
+            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
+            handle: PotatoHandlingTips.allNotRecommended
+                .handle,
+            isRecommended: true
+        ),
+        Potato(
+            name: "Healthy",
+            action: "Likely Recommended",
+            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
+            handle: PotatoHandlingTips.allNotRecommended
                 .handle,
             isRecommended: true
         ),

@@ -16,18 +16,17 @@ enum PotatoHandlingTips {
         switch self {
         case .allRecommended:
             return PotatoHandlingModel(
-                texts: ["Avoid direct sun", "Keep cool & dry", "Use breatheable storage"],
+                texts: ["Avoid direct sun.", "Keep cool & dry.", "Use breatheable storage."],
                 imageNames: ["avoid-direct-sun", "keep-cool-&-dry", "use-breatheable-storage"]
             )
         case .allNotRecommended:
-
             return PotatoHandlingModel(
-                texts: ["Throw away entirely","Separate from fresh potatoes"],
+                texts: ["Throw away entirely.","Separate from fresh potatoes."],
                 imageNames: ["throw-away-entirely", "separate-from-fresh-potatoes"]
                 )
         case .mixed:
             return PotatoHandlingModel(
-                texts: ["Cut damaged parts", "Use good parts", "Finish immediately"],
+                texts: ["Cut damaged parts.", "Use good parts.", "Finish immediately."],
                 imageNames: ["cut-damaged-parts", "use-good-parts", "finish-immediately"]
             )
         }
