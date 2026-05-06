@@ -54,10 +54,16 @@ struct HandlingTipsCard: View {
             
             Spacer()
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 14)
-        .background(Color.white)
-        .cornerRadius(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .strokeBorder(Color.borderWhite, lineWidth: 2)
+        )
     }
 }
 
@@ -74,15 +80,3 @@ struct HandlingGroup: View {
     }
 }
 
-#Preview{
-    ZStack {
-        Color.backgroundColor
-            .ignoresSafeArea()
-        HandlingGroup(card: HandlingCard(items: [
-            HandlingTips(imageName: "icon-sun", label: "Sun Protection", isRecommended: true),
-            HandlingTips(imageName: "icon-wind", label: "Wind Protection", isRecommended: false),
-            HandlingTips(imageName: "icon-rain", label: "Rain Protection", isRecommended: true),
-        ]))
-    }
-
-}

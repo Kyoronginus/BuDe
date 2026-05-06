@@ -60,13 +60,6 @@ struct conditionListCard: View {
             RoundedRectangle(cornerRadius: 20)
                 .strokeBorder(Color.borderWhite, lineWidth: 2)
         )
-        //ngecek font bawaan
-        .onAppear {
-            for family in UIFont.familyNames.sorted() {
-                let names = UIFont.fontNames(forFamilyName: family)
-                print("Family: \(family) Font names: \(names)")
-            }
-        }
     }
 }
 
