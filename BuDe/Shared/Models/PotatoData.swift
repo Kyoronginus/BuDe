@@ -60,21 +60,21 @@ extension Potato {
         ),
         Potato(
             name: "Sprouted",
-            action: "Not recommended",
+            action: "Not Recommended",
             tips: "Sprouted potatoes are dangerous due to high solanine levels.",
             handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
         ),
         Potato(
             name: "Green Patches",
-            action: "Not recommended",
+            action: "Not Recommended",
             tips: "Green areas contain solanine. May be harmful if consume in excess.",
             handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
         ),
         Potato(
             name: "Soft Rotten",
-            action: "Not recommended",
+            action: "Not Recommended",
             tips: "Soft or rotten potatoes show signs of decay and should be discarded.",
             handle: PotatoHandlingTips.allNotRecommended.handle,
             isRecommended: false
