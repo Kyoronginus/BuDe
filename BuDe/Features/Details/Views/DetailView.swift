@@ -8,6 +8,7 @@ import SwiftUI
 import Vision
 
 struct DetailView: View {
+    
     var viewModel: DetailViewModel
     @State private var selected = "Condition"
     let options = ["Condition", "Handling Tips"]
@@ -87,7 +88,7 @@ struct DetailView: View {
                         .frame(height: 200)
                 }
                 
-            
+                
                 Picker("Select a type", selection: $selected) {
                     ForEach(options, id: \.self) { option in
                         Text(option)
@@ -97,6 +98,16 @@ struct DetailView: View {
                 .pickerStyle(.segmented)
                 .zIndex(1)
                 .padding(.bottom, 10)
+                .onAppear(){
+                    UISegmentedControl.appearance().backgroundColor = .lightGray
+                    
+                    // Warna slider yang bergerak (putih)
+                    UISegmentedControl.appearance().selectedSegmentTintColor = .white
+                    
+                    // Warna teks
+                    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
+                    UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+                }
                 
                 if selected == "Condition"{
                     // condition list row
@@ -147,32 +158,32 @@ struct DetailView: View {
     
 }
 
-#Preview {
-    DetailView(viewModel: DetailViewModel(detectedPotatoes: [
-        Potato(
-            name: "Healthy",
-            action: "Likely Recommended",
-            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
-            handle: PotatoHandlingTips.allNotRecommended
-                .handle,
-            isRecommended: true
-        ),
-        Potato(
-            name: "Healthy",
-            action: "Likely Recommended",
-            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
-            handle: PotatoHandlingTips.allNotRecommended
-                .handle,
-            isRecommended: true
-        ),
-        Potato(
-            name: "Healthy",
-            action: "Likely Recommended",
-            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
-            handle: PotatoHandlingTips.allNotRecommended
-                .handle,
-            isRecommended: true
-        ),
-    ], isRecommended: true))
-}
+//#Preview {
+//    DetailView(viewModel: DetailViewModel(detectedPotatoes: [
+//        Potato(
+//            name: "Healthy",
+//            action: "Likely Recommended",
+//            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
+//            handle: PotatoHandlingTips.allNotRecommended
+//                .handle,
+//            isRecommended: true
+//        ),
+//        Potato(
+//            name: "Healthy",
+//            action: "Likely Recommended",
+//            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
+//            handle: PotatoHandlingTips.allNotRecommended
+//                .handle,
+//            isRecommended: true
+//        ),
+//        Potato(
+//            name: "Healthy",
+//            action: "Likely Recommended",
+//            tips: "No signs of sprouts, mold, or greening detected, indicating the potato is in ",
+//            handle: PotatoHandlingTips.allNotRecommended
+//                .handle,
+//            isRecommended: true
+//        ),
+//    ], isRecommended: true))
+//}
 
