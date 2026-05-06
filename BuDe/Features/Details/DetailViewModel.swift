@@ -39,6 +39,13 @@ enum PotatoCondition {
         }
     }
     
+    var maskotImage: Image {
+        switch self {
+        case .safeToEat: return Image("happyPotato")
+        case .notRecommended: return Image("sadPotato")
+        }
+    }
+    
     var courageMessage: String {
         switch self {
         case .safeToEat: return "Great job! You're taking good care of your potato!"

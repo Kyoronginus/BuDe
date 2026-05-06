@@ -150,7 +150,7 @@ struct DetailView: View {
                         )
                         .frame(height: 70)
                     HStack{
-                        Image("happyPotato")
+                        viewModel.overallCondition.maskotImage
                             .resizable()
                             .padding(10)
                             .frame(width: 70, height:70)

@@ -15,8 +15,6 @@ struct ConditionCard: View {
     @State var isDetailShown: Bool = false
     
     var boundingBoxes: [VNRecognizedObjectObservation] = []
-    var onShowDetail: () -> Void = {}
-    var onDismissDetail: () -> Void = {}
     
     var fetchPixelBuffer: (() -> CVPixelBuffer?)? = nil
     
@@ -70,7 +68,6 @@ struct ConditionCard: View {
         .cornerRadius(16)
         .sheet(isPresented: $isDetailShown, onDismiss: {
             onToggleSheet(false)
-            onDismissDetail()
         }) {
             DetailView(viewModel: DetailViewModel(
                 detectedPotatoes: condition,
