@@ -41,10 +41,10 @@ struct conditionListCard: View {
             VStack (alignment: .leading, spacing: 4){
                 
                 Text("\(potato.name)")
-                    .font(.conditionCard)
+                    .font(.cardText)
                     .foregroundStyle(type.textColor)
                 Text(potato.tips)
-                    .font(.conditionCard)
+                    .font(.cardText)
                     .foregroundStyle(Color.fontDark)
                     .fixedSize(horizontal: false, vertical: true)
             }

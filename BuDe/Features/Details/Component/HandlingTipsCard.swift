@@ -49,7 +49,7 @@ struct HandlingTipsCard: View {
                 .frame(width: 56, height: 56)
             
             Text(item.label)
-                .font(.conditionCard)
+                .font(.cardText)
                 .foregroundStyle(Color.fontDark)
             
             Spacer()
