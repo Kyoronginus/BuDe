@@ -2,7 +2,10 @@
 
 BuDe is an iOS application designed to analyze the quality and condition of food ingredients in real-time. By leveraging on-device machine learning and the device's camera, the app detects ingredients, categorizes their health status, and provides actionable handling tips.
 
-![Application Screenshot](BuDe/app-screenshot-1.png)
+<p align="center">
+  <img src="BuDe/app-screenshot-1.png" width="350">
+</p>
+
 
 ## Core Features
 
